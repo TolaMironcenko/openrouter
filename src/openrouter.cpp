@@ -1,12 +1,18 @@
 #include <iostream>
 #include <httplib.h>
 #include <colors.h>
+#include "settings/telnet/telnet.hpp"
+#include "reboot/reboot.hpp"
 
 #define CORS_ENABLE
 #include "security/cors.hpp"
 
 int main() {
     httplib::Server srv;
+
+    srv.Post("/api/settings/telnet/get", get_telnet);
+    srv.Post("/api/settings/telnet/set", set_telnet);
+    srv.Post("/api/reboot", reboot);
 
     srv.Options("/(.*)", set_cors_headers);
 
@@ -15,8 +21,8 @@ int main() {
     srv.set_mount_point("/css", "../src/web/css");
 
     std::cout << GREEN << "Starting" << RESET << " server on [ " << YELLOW
-            << "localhost" << RESET << ":" << CYAN << "43243" << RESET << " ]" << std::endl;
+            << "0.0.0.0" << RESET << ":" << CYAN << "43244" << RESET << " ]" << std::endl;
 
-    srv.listen("localhost", 43244);
+    srv.listen("0.0.0.0", 43244);
     return 0;
 }

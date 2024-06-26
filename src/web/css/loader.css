@@ -1,0 +1,64 @@
+.loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    pointer-events: none;
+    display: grid;
+    z-index: 12;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+.loader>h1 {
+    opacity: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.loadertip {
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    place-self: center;
+    z-index: 12;
+    position: relative;
+    transition: 0.3s;
+}
+
+.progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-top: 5px solid #56C1F9;
+    border-radius: 50%;
+    animation: loading 2s infinite ease-in-out;
+}
+
+.loader.active {
+    width: 100vw;
+    height: 100vh;
+}
+
+.loader.active > .loadertip {
+    width: 100px;
+    height: 100px;
+    border-bottom: 5px solid gray;
+    animation: loading 2s infinite ease-in-out;
+}
+
+.loader.active>h1 {
+    opacity: 1;
+}
+
+@keyframes loading {
+    100% {
+        transform: rotate(360deg);
+    }
+}

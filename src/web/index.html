@@ -5,9 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/loader.css">
     <title>Openrouter Admin</title>
 </head>
 <body>
+    <section class="adminpanel">
+        <header class="header">
+            <div class="links">
+                <button class="linkbutton">Settings</button>
+                <button class="linkbutton" id="rebootbutton">Reboot</button>
+            </div>
+            <h1>Openrouter Admin</h1>
+            <div class="userbuttons">
+                <h1 class="headerusername"></h1>
+                <button class="exitbutton">Exit</button>
+            </div>
+        </header>
+    
+        <section class="settingssection">
+            <div class="settingrect">
+                <div class="settingrectheader">
+                    <h2>Telnet</h2>
+                    <div class="checkbox-wrapper-2">
+                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="telnetenable">
+                    </div>
+                </div>
+                <div class="settingrectbody telnetsettingbody">
+                    <table class="telnetuserstable">
+                        <thead>
+                            <tr>
+                                <th>username</th>
+                                <th>password</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><th>No users</th></tr>
+                            <!-- <tr>
+                                <th>root</th>
+                                <th>2808</th>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="settingrectfooter">
+                    <button>Add telnet user</button>
+                    <button id="set_telnet_settings">Confirm</button>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <div class="notification">
+        <div class="notificationtextbox">
+            <h3 class="notificationtext"></h3>
+        </div>
+    </div>
+
     <div class="form loginform">
         <form class="formbody loginformbody">
             <h1 class="formheader">OpenRouter Login</h1>
@@ -24,9 +81,28 @@
             </div>
         </form>
     </div>
-    <button class="exitbutton">exit</button>
+
+    <div class="form confirmrebootform">
+        <div class="formbody confirmrebootformbody">
+            <h1 class="formheader">Confirm reboot?</h1>
+            <div class="forminputbody confirmform">
+                <button class="formbutton" id="cancelreboot">Cancel</button>
+                <button class="formbutton" id="confirmreboot">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loader">
+        <h1>Reboting</h1>
+        <div class="loadertip">
+            <div class="progress"></div>
+        </div>
+    </div>
 
     <script src="js/routes.js"></script>
+    <script src="js/notification.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/settings/telnet.js"></script>
+    <script src="js/reboot.js"></script>
 </body>
 </html>

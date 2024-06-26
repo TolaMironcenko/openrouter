@@ -1,6 +1,5 @@
 :root {
     color-scheme: light dark;
-    /* --font-color: light-dark(black, white); */
 }
 
 * {
@@ -12,5 +11,17 @@
 body {
     width: 100vw;
     height: 100vh;
-    /* background-color: light-dark(white, black); */
+}
+
+.adminpanel {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.adminpanel.active {
+    transform: scale(1);
+    opacity: 1;
 }

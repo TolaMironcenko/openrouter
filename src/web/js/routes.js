@@ -1,9 +1,13 @@
-const host = 'http://localhost:43243'
+const authhost = 'http://192.168.122.76:43243'
+const host = 'http://192.168.122.76:43244'
 const prefix = 'api'
 
 const routes = {
-    login: () => [host, prefix, 'token'].join('/'),
-    // user: () => [host, prefix, 'users', 'user'].join('/'),
+    login: () => [authhost, prefix, 'token'].join('/'),
+    user: () => [authhost, prefix, 'users', 'user'].join('/'),
+    telnet_status: () => [host, prefix, 'settings', 'telnet', 'get'].join('/'),
+    telnet_status_set: () => [host, prefix, 'settings', 'telnet', 'set'].join('/'),
+    reboot: () => [host, prefix, 'reboot'].join('/')
     // all_users: () => [host, prefix, 'users', 'all'].join('/'),
     // access: () => [host, prefix, 'access'].join('/'),
     // adduser: () => [host, prefix, 'users', 'add'].join('/'),

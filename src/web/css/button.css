@@ -1,0 +1,19 @@
+button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.6;
+}
+
+.linkbutton {
+    background: transparent;
+}
+
+.linkbutton:hover {
+    text-decoration: underline;
+}

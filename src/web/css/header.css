@@ -1,0 +1,20 @@
+header {
+    width: 100vw;
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.userbuttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
