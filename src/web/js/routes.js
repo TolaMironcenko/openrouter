@@ -1,5 +1,5 @@
 const authhost = 'http://192.168.122.76:43243'
-const host = 'http://192.168.122.76:43244'
+const host = window.location.origin
 const prefix = 'api'
 
 const routes = {
@@ -7,6 +7,8 @@ const routes = {
     user: () => [authhost, prefix, 'users', 'user'].join('/'),
     telnet_status: () => [host, prefix, 'settings', 'telnet', 'get'].join('/'),
     telnet_status_set: () => [host, prefix, 'settings', 'telnet', 'set'].join('/'),
+    dns_status: () => [host, prefix, 'settings', 'dns', 'get'].join('/'),
+    dns_status_set: () => [host, prefix, 'settings', 'dns', 'set'].join('/'),
     reboot: () => [host, prefix, 'reboot'].join('/')
     // all_users: () => [host, prefix, 'users', 'all'].join('/'),
     // access: () => [host, prefix, 'access'].join('/'),

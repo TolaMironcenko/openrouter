@@ -65,6 +65,12 @@
     background-color: hsl(from green h s 20%);
   }
   
+.settingssection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .settingrect {
   width: 25%;
   height: max-content;

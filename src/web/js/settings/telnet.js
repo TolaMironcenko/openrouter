@@ -1,6 +1,9 @@
 const telnetenabled = document.querySelector('#telnetenable')
 const telnetsettingbody = document.querySelector('.telnetsettingbody')
 const settelnetsettingsbutton = document.querySelector('#set_telnet_settings')
+const confirmtelnetform = document.querySelector('.confirmtelnetform')
+const canceltelnetbutton = document.querySelector('#canceltelnet')
+const confirmtelnetbutton = document.querySelector('#confirmtelnet')
 
 const get_telnet_enabled_status = () => {
     fetch(routes.telnet_status(), {
@@ -43,5 +46,14 @@ telnetenabled.addEventListener('click', () => {
 })
 
 settelnetsettingsbutton.addEventListener('click', () => {
+    confirmtelnetform.classList.add('active')
+})
+
+canceltelnetbutton.addEventListener('click', () => {
+    confirmtelnetform.classList.remove('active')
+})
+
+confirmtelnetbutton.addEventListener('click', () => {
     set_telnet_enabled_status(telnetenabled.checked)
+    confirmtelnetform.classList.remove('active')
 })

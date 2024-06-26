@@ -2,6 +2,7 @@
 #include <httplib.h>
 #include <colors.h>
 #include "settings/telnet/telnet.hpp"
+#include "settings/dns/dns.hpp"
 #include "reboot/reboot.hpp"
 
 #define CORS_ENABLE
@@ -12,6 +13,9 @@ int main() {
 
     srv.Post("/api/settings/telnet/get", get_telnet);
     srv.Post("/api/settings/telnet/set", set_telnet);
+    srv.Post("/api/settings/dns/get", get_dns);
+    srv.Post("/api/settings/dns/set", set_dns);
+
     srv.Post("/api/reboot", reboot);
 
     srv.Options("/(.*)", set_cors_headers);
@@ -23,6 +27,6 @@ int main() {
     std::cout << GREEN << "Starting" << RESET << " server on [ " << YELLOW
             << "0.0.0.0" << RESET << ":" << CYAN << "43244" << RESET << " ]" << std::endl;
 
-    srv.listen("0.0.0.0", 43244);
+    srv.listen("0.0.0.0", 80);
     return 0;
 }

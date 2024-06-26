@@ -56,6 +56,18 @@
                     <button id="set_telnet_settings">Confirm</button>
                 </div>
             </div>
+            <div class="settingrect">
+                <div class="settingrectheader">
+                    <h2>Dns</h2>
+                    <div class="checkbox-wrapper-2">
+                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="dnsenable">
+                    </div>
+                </div>
+                <div class="settingrectfooter">
+                    <button>Add dns server</button>
+                    <button id="set_dns_settings">Confirm</button>
+                </div>
+            </div>
         </section>
     </section>
 
@@ -92,6 +104,26 @@
         </div>
     </div>
 
+    <div class="form confirmtelnetform">
+        <div class="formbody confirmtelnetformbody">
+            <h1 class="formheader">Confirm telnet settings?</h1>
+            <div class="forminputbody confirmform">
+                <button class="formbutton" id="canceltelnet">Cancel</button>
+                <button class="formbutton" id="confirmtelnet">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="form confirmdnsform">
+        <div class="formbody confirmdnsformbody">
+            <h1 class="formheader">Confirm dns settings?</h1>
+            <div class="forminputbody confirmform">
+                <button class="formbutton" id="canceldns">Cancel</button>
+                <button class="formbutton" id="confirmdns">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <div class="loader">
         <h1>Reboting</h1>
         <div class="loadertip">
@@ -103,6 +135,7 @@
     <script src="js/notification.js"></script>
     <script src="js/login.js"></script>
     <script src="js/settings/telnet.js"></script>
+    <script src="js/settings/dns.js"></script>
     <script src="js/reboot.js"></script>
 </body>
 </html>
