@@ -14,6 +14,7 @@
 </head>
 <body>
     <section class="adminpanel">
+        <!-- header -->
         <header class="header">
             <div class="links">
                 <button class="linkbutton">Settings</button>
@@ -25,8 +26,10 @@
                 <button class="exitbutton">Exit</button>
             </div>
         </header>
-    
+        <!-- header -->
+        <!-- settings block -->
         <section class="settingssection">
+            <!-- telnet settings -->
             <div class="settingrect">
                 <div class="settingrectheader">
                     <h2>Telnet</h2>
@@ -56,6 +59,8 @@
                     <button id="set_telnet_settings">Confirm</button>
                 </div>
             </div>
+            <!-- telnet settings -->
+            <!-- dns settings -->
             <div class="settingrect">
                 <div class="settingrectheader">
                     <h2>Dns</h2>
@@ -68,15 +73,33 @@
                     <button id="set_dns_settings">Confirm</button>
                 </div>
             </div>
+            <!-- dns settings -->
+            <!-- ftp settings -->
+            <div class="settingrect">
+                <div class="settingrectheader">
+                    <h2>Ftp</h2>
+                    <div class="checkbox-wrapper-2">
+                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="ftpenable">
+                    </div>
+                </div>
+                <div class="settingrectfooter">
+                    <!-- <button>Add Ftp server</button> -->
+                    <button id="set_ftp_settings">Confirm</button>
+                </div>
+            </div>
+            <!-- ftp settings -->
         </section>
+        <!-- settings block -->
     </section>
 
+    <!-- notification block -->
     <div class="notification">
         <div class="notificationtextbox">
             <h3 class="notificationtext"></h3>
         </div>
     </div>
-
+    <!-- notification block -->
+    <!-- login form -->
     <div class="form loginform">
         <form class="formbody loginformbody">
             <h1 class="formheader">OpenRouter Login</h1>
@@ -93,49 +116,35 @@
             </div>
         </form>
     </div>
-
-    <div class="form confirmrebootform">
-        <div class="formbody confirmrebootformbody">
-            <h1 class="formheader">Confirm reboot?</h1>
-            <div class="forminputbody confirmform">
-                <button class="formbutton" id="cancelreboot">Cancel</button>
-                <button class="formbutton" id="confirmreboot">Confirm</button>
+    <!-- login form -->
+    <!-- confirm form -->
+    <div class="form" id="confirmform">
+        <div class="formbody confirmformbody">
+            <h1 class="formheader" id="confirmformheader">Confirm dns settings?</h1>
+            <div class="forminputbody confirmform" id="confirmformbuttons">
+                <button class="formbutton" id="cancel">Cancel</button>
+                <button class="formbutton" id="confirm">Confirm</button>
             </div>
         </div>
     </div>
-
-    <div class="form confirmtelnetform">
-        <div class="formbody confirmtelnetformbody">
-            <h1 class="formheader">Confirm telnet settings?</h1>
-            <div class="forminputbody confirmform">
-                <button class="formbutton" id="canceltelnet">Cancel</button>
-                <button class="formbutton" id="confirmtelnet">Confirm</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="form confirmdnsform">
-        <div class="formbody confirmdnsformbody">
-            <h1 class="formheader">Confirm dns settings?</h1>
-            <div class="forminputbody confirmform">
-                <button class="formbutton" id="canceldns">Cancel</button>
-                <button class="formbutton" id="confirmdns">Confirm</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- confirm form -->
+    <!-- loader -->
     <div class="loader">
         <h1>Reboting</h1>
         <div class="loadertip">
             <div class="progress"></div>
         </div>
     </div>
-
+    <!-- loader -->
     <script src="js/routes.js"></script>
     <script src="js/notification.js"></script>
     <script src="js/login.js"></script>
+
+    <script src="js/settings/confirm.js"></script>
     <script src="js/settings/telnet.js"></script>
     <script src="js/settings/dns.js"></script>
+    <script src="js/settings/ftp.js"></script>
+
     <script src="js/reboot.js"></script>
 </body>
 </html>

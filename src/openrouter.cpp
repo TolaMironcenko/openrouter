@@ -3,6 +3,7 @@
 #include <colors.h>
 #include "settings/telnet/telnet.hpp"
 #include "settings/dns/dns.hpp"
+#include "settings/ftp/ftp.hpp"
 #include "reboot/reboot.hpp"
 
 #define CORS_ENABLE
@@ -15,6 +16,8 @@ int main() {
     srv.Post("/api/settings/telnet/set", set_telnet);
     srv.Post("/api/settings/dns/get", get_dns);
     srv.Post("/api/settings/dns/set", set_dns);
+    srv.Post("/api/settings/ftp/get", get_ftp);
+    srv.Post("/api/settings/ftp/set", set_ftp);
 
     srv.Post("/api/reboot", reboot);
 

@@ -9,6 +9,9 @@ const routes = {
     telnet_status_set: () => [host, prefix, 'settings', 'telnet', 'set'].join('/'),
     dns_status: () => [host, prefix, 'settings', 'dns', 'get'].join('/'),
     dns_status_set: () => [host, prefix, 'settings', 'dns', 'set'].join('/'),
+    ftp_status: () => [host, prefix, 'settings', 'ftp', 'get'].join('/'),
+    ftp_status_set: () => [host, prefix, 'settings', 'ftp', 'set'].join('/'),
+
     reboot: () => [host, prefix, 'reboot'].join('/')
     // all_users: () => [host, prefix, 'users', 'all'].join('/'),
     // access: () => [host, prefix, 'access'].join('/'),

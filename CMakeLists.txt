@@ -11,6 +11,7 @@ add_executable(
     
     src/settings/telnet/telnet.cpp
     src/settings/dns/dns.cpp
+    src/settings/ftp/ftp.cpp
 
     src/reboot/reboot.cpp
 )  

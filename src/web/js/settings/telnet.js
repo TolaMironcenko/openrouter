@@ -1,15 +1,13 @@
 const telnetenabled = document.querySelector('#telnetenable')
 const telnetsettingbody = document.querySelector('.telnetsettingbody')
 const settelnetsettingsbutton = document.querySelector('#set_telnet_settings')
-const confirmtelnetform = document.querySelector('.confirmtelnetform')
-const canceltelnetbutton = document.querySelector('#canceltelnet')
-const confirmtelnetbutton = document.querySelector('#confirmtelnet')
 
 const get_telnet_enabled_status = () => {
     fetch(routes.telnet_status(), {
         method: 'POST',
         body: `{"token":"${localStorage.getItem("token")}"}`
     }).then(res => res.json()).then(jsondata => {
+        console.log(jsondata)
         if (jsondata.enabled === '1') {
             telnetenabled.checked = true
             // telnetsettingbody.classList.add('active')
@@ -20,10 +18,12 @@ const get_telnet_enabled_status = () => {
     })
 }
 
-const set_telnet_enabled_status = (status) => {
+get_telnet_enabled_status()
+
+const set_telnet_enabled_status = () => {
     fetch(routes.telnet_status_set(), {
         method: 'POST',
-        body: `{"token":"${localStorage.getItem("token")}","enabled":"${status?1:0}"}`
+        body: `{"token":"${localStorage.getItem("token")}","enabled":"${telnetenabled.checked?1:0}"}`
     }).then(res => res.json()).then(jsondata => {
         if (jsondata.enabled === '1') {
             telnetenabled.checked = true
@@ -35,8 +35,6 @@ const set_telnet_enabled_status = (status) => {
     })
 }
 
-get_telnet_enabled_status()
-
 telnetenabled.addEventListener('click', () => {
     if (telnetenabled.checked) {
         // telnetsettingbody.classList.add('active')
@@ -46,14 +44,5 @@ telnetenabled.addEventListener('click', () => {
 })
 
 settelnetsettingsbutton.addEventListener('click', () => {
-    confirmtelnetform.classList.add('active')
-})
-
-canceltelnetbutton.addEventListener('click', () => {
-    confirmtelnetform.classList.remove('active')
-})
-
-confirmtelnetbutton.addEventListener('click', () => {
-    set_telnet_enabled_status(telnetenabled.checked)
-    confirmtelnetform.classList.remove('active')
+    get_confirm_form("Confirm telnet settings?", set_telnet_enabled_status)
 })
