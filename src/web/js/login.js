@@ -10,6 +10,7 @@ if (localStorage.getItem("token") === null) {
     adminpanelsection.classList.remove('active')
     loginform.classList.add('active')
 } else {
+    get_all_settings()
     adminpanelsection.classList.add('active')
     headerusername.innerHTML = JSON.parse(localStorage.getItem('userdata')).username
 }
@@ -40,6 +41,7 @@ const login = async (username, password) => {
         notification("Успешно", "success")
         loginform.classList.remove("active")
         localStorage.setItem("token", response.token)
+        get_all_settings()
         adminpanelsection.classList.add('active')
         await get_user_data()
         loginusername.value = ""

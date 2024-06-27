@@ -18,8 +18,6 @@ const get_telnet_enabled_status = () => {
     })
 }
 
-get_telnet_enabled_status()
-
 const set_telnet_enabled_status = () => {
     fetch(routes.telnet_status_set(), {
         method: 'POST',

@@ -17,8 +17,6 @@ const get_ftp_enabled_status = () => {
     })
 }
 
-get_ftp_enabled_status()
-
 const set_ftp_enabled_status = () => {
     fetch(routes.ftp_status_set(), {
         method: 'POST',

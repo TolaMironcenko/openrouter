@@ -10,7 +10,10 @@ add_executable(
     src/security/cors.cpp
     
     src/settings/telnet/telnet.cpp
+
     src/settings/dns/dns.cpp
+    src/settings/dns/dns_servers.cpp
+
     src/settings/ftp/ftp.cpp
 
     src/reboot/reboot.cpp
