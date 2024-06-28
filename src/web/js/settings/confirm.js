@@ -3,12 +3,17 @@ const confirmformheader = document.querySelector('#confirmformheader')
 const cancelbutton = document.querySelector('#cancel')
 const confirmformbuttons = document.querySelector('#confirmformbuttons')
 
-const get_confirm_form = (header, reqfunc) => {
+const defaultcancelreqfunc = () => {
+    confirmform.classList.remove('active')
+}
+
+const get_confirm_form = (header, reqfunc = defaultcancelreqfunc, cancelreqfunc = defaultcancelreqfunc) => {
     console.log("confirmform")
     confirmformheader.innerHTML = header
     console.log("confirmformheader")
     confirmform.classList.add('active')
     console.log("activeconfirmform")
+
     var confirmbutton = document.createElement('button')
     confirmbutton.classList.add('formbutton')
     confirmbutton.id = "confirm"
@@ -18,8 +23,14 @@ const get_confirm_form = (header, reqfunc) => {
         confirmform.classList.remove('active')
     })
     confirmformbuttons.replaceChild(confirmbutton, document.querySelector('#confirm'))
-}
 
-cancelbutton.addEventListener('click', () => {
-    confirmform.classList.remove('active')
-})
+    var cancelbutton = document.createElement('button')
+    cancelbutton.classList.add('formbutton')
+    cancelbutton.id = "cancel"
+    cancelbutton.innerHTML = "Cancel"
+    cancelbutton.addEventListener('click', () => {
+        cancelreqfunc()
+        confirmform.classList.remove('active')
+    })
+    confirmformbuttons.replaceChild(cancelbutton, document.querySelector('#cancel'))
+}

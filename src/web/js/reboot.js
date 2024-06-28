@@ -1,5 +1,4 @@
 const rebootbutton = document.querySelector('#rebootbutton')
-const loader = document.querySelector('.loader')
 
 rebootbutton.addEventListener('click', () => {
     get_confirm_form("Confirm reboot?", reboot)
@@ -13,7 +12,7 @@ const reboot = () => {
     }).then(data => data.json()).then(jsondata => {
 
     }).catch((error) => {
-        loader.classList.add('active')
+        start_loader("Rebooting")
         setTimeout(waitreboot, 2000)
     })
 }
@@ -23,7 +22,7 @@ const waitreboot = () => {
         method: 'POST',
         body: `{"token":"${localStorage.getItem("token")}"}`
     }).then(res => res.json()).then(jsondata => {
-        loader.classList.remove('active')
+        stop_loader()
     }).catch((error) => {
         waitreboot()
     })

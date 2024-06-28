@@ -55,34 +55,34 @@
                     </table>
                 </div>
                 <div class="settingrectfooter">
-                    <button>Add telnet user</button>
-                    <button id="set_telnet_settings">Confirm</button>
+                    <button class="settingrectfooterbutton hiddenbutton" id="add_telnet_user_button">Add telnet user</button>
+                    <button class="settingrectfooterbutton" id="set_telnet_settings">Confirm</button>
                 </div>
             </div>
             <!-- telnet settings -->
-            <!-- dns settings -->
+            <!-- DNS settings -->
             <div class="settingrect">
                 <div class="settingrectheader">
-                    <h2>Dns</h2>
+                    <h2>DNS</h2>
                     <div class="checkbox-wrapper-2">
                         <input type="checkbox" class="sc-gJwTLC ikxBAC" id="dnsenable">
                     </div>
                 </div>
-                <div class="settingrectbody active" id="dnssettingsbody">
+                <div class="settingrectbody" id="dnssettingsbody">
                     <table class="dnsservers">
                         <thead>
-                            <tr><th>dns servers</th></tr>
+                            <tr><th>DNS servers</th></tr>
                         </thead>
                         <tbody id="dnsserverstablebody">
                         </tbody>
                     </table>
                 </div>
                 <div class="settingrectfooter">
-                    <button>Add dns server</button>
-                    <button id="set_dns_settings">Confirm</button>
+                    <button id="add_dns_server_button" class="hiddenbutton settingrectfooterbutton">Add DNS server</button>
+                    <button class="settingrectfooterbutton" id="set_dns_settings">Confirm</button>
                 </div>
             </div>
-            <!-- dns settings -->
+            <!-- DNS settings -->
             <!-- ftp settings -->
             <div class="settingrect">
                 <div class="settingrectheader">
@@ -93,7 +93,7 @@
                 </div>
                 <div class="settingrectfooter">
                     <!-- <button>Add Ftp server</button> -->
-                    <button id="set_ftp_settings">Confirm</button>
+                    <button class="settingrectfooterbutton" id="set_ftp_settings">Confirm</button>
                 </div>
             </div>
             <!-- ftp settings -->
@@ -102,11 +102,7 @@
     </section>
 
     <!-- notification block -->
-    <div class="notification">
-        <div class="notificationtextbox">
-            <h3 class="notificationtext"></h3>
-        </div>
-    </div>
+    <div class="notificationsection"></div>
     <!-- notification block -->
     <!-- login form -->
     <div class="form loginform">
@@ -129,7 +125,7 @@
     <!-- confirm form -->
     <div class="form" id="confirmform">
         <div class="formbody confirmformbody">
-            <h1 class="formheader" id="confirmformheader">Confirm dns settings?</h1>
+            <h1 class="formheader" id="confirmformheader">Confirm DNS settings?</h1>
             <div class="forminputbody confirmform" id="confirmformbuttons">
                 <button class="formbutton" id="cancel">Cancel</button>
                 <button class="formbutton" id="confirm">Confirm</button>
@@ -137,9 +133,24 @@
         </div>
     </div>
     <!-- confirm form -->
+    <!-- add DNS server form -->
+    <div class="form" id="adddnsserverform">
+        <div class="formbody adddnsserverformbody">
+            <h1 class="formheader" id="adddnsserverform">Add DNS server</h1>
+            <div class="forminputbody adddnsserverform">
+                <label for="adddnsserverinput" class="forminputlabel"></label>
+                <input required type="text" class="forminput" id="adddnsserverinput">
+            </div>
+            <div class="forminputbody confirmform">
+                <button class="formbutton" id="adddnsservercancel">Cancel</button>
+                <button class="formbutton" id="adddnsserverconfirm">Add</button>
+            </div>
+        </div>
+    </div>
+    <!-- add DNS server form -->
     <!-- loader -->
     <div class="loader">
-        <h1>Reboting</h1>
+        <h1 id="loaderheader">Reboting</h1>
         <div class="loadertip">
             <div class="progress"></div>
         </div>
@@ -147,6 +158,7 @@
     <!-- loader -->
     <script src="js/routes.js"></script>
     <script src="js/notification.js"></script>
+    <script src="js/loader.js"></script>
 
     <script src="js/settings/confirm.js"></script>
     <script src="js/settings/telnet.js"></script>

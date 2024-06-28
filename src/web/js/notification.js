@@ -1,7 +1,19 @@
-const notificationbox = document.querySelector('.notification')
-const notificationtext = document.querySelector('.notificationtext')
+const notificationsection = document.querySelector('.notificationsection')
+// const notificationtext = document.querySelector('.notificationtext')
 
 const notification = (text, type) => {
+    const notificationbox = document.createElement('div')
+    const notificationtextbox = document.createElement('div')
+    const notificationtext = document.createElement('h3')
+    notificationtext.classList.add('notificationtext')
+    notificationtextbox.append(notificationtext)
+    notificationtextbox.classList.add('notificationtextbox')
+    notificationbox.append(notificationtextbox)
+    notificationbox.classList.add('notification')
+    notificationbox.addEventListener('click', () => {
+        notificationbox.classList.remove('active')
+    })
+    notificationsection.append(notificationbox)
     if (type === "error") {
         notificationbox.classList.remove('success')
         notificationbox.classList.add('error')
@@ -10,14 +22,19 @@ const notification = (text, type) => {
         notificationbox.classList.add('success')
     }
     notificationtext.innerHTML = text
-    notificationbox.classList.add('active')
+    setTimeout(() => {
+        notificationbox.classList.add('active')
+    }, 300)
     setTimeout(() => {
         notificationbox.classList.remove('active')
-    }, 2000)
+        setTimeout(() => {
+            notificationsection.removeChild(notificationbox)
+        }, 200)
+    }, 3000)
 }
 
-const closenotification = () => {
-    notificationbox.classList.remove('active')
-}
+// const closenotification = () => {
+    // notificationbox.classList.remove('active')
+// }
 
-notificationbox.addEventListener('click', closenotification)
+// notificationbox.addEventListener('click', closenotification)

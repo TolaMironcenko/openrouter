@@ -1,3 +1,13 @@
+.notificationsection {
+    width: max-content;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
 .notification {
     width: max-content;
     height: 0;
@@ -5,7 +15,7 @@
     pointer-events: none;
     z-index: 10;
     border-radius: 10px;
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     right: 0;
     transition: 0.3s;

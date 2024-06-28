@@ -18,6 +18,7 @@ int main() {
     srv.Post("/api/settings/dns/get", get_dns);
     srv.Post("/api/settings/dns/set", set_dns);
     srv.Post("/api/settings/dns/servers/get", get_dns_servers);
+    srv.Post("/api/settings/dns/servers/set", set_dns_servers);
 
     srv.Post("/api/settings/ftp/get", get_ftp);
     srv.Post("/api/settings/ftp/set", set_ftp);

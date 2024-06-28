@@ -1,4 +1,4 @@
-const authhost = 'http://192.168.0.110:43243'
+const authhost = 'http://172.20.10.2:43243'
 const host = window.location.origin
 const prefix = 'api'
 
@@ -11,6 +11,7 @@ const routes = {
     dns_status: () => [host, prefix, 'settings', 'dns', 'get'].join('/'),
     dns_status_set: () => [host, prefix, 'settings', 'dns', 'set'].join('/'),
     dns_servers_get: () => [host, prefix, 'settings', 'dns', 'servers', 'get'].join('/'),
+    dns_servers_set: () => [host, prefix, 'settings', 'dns', 'servers', 'set'].join('/'),
 
     ftp_status: () => [host, prefix, 'settings', 'ftp', 'get'].join('/'),
     ftp_status_set: () => [host, prefix, 'settings', 'ftp', 'set'].join('/'),
