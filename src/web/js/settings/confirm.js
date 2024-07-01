@@ -8,11 +8,8 @@ const defaultcancelreqfunc = () => {
 }
 
 const get_confirm_form = (header, reqfunc = defaultcancelreqfunc, cancelreqfunc = defaultcancelreqfunc) => {
-    console.log("confirmform")
     confirmformheader.innerHTML = header
-    console.log("confirmformheader")
     confirmform.classList.add('active')
-    console.log("activeconfirmform")
 
     var confirmbutton = document.createElement('button')
     confirmbutton.classList.add('formbutton')

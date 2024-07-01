@@ -76,8 +76,21 @@
                         <tbody id="dnsserverstablebody">
                         </tbody>
                     </table>
+                    <h3>Domains Table</h3>
+                    <table class="domains">
+                        <thead>
+                            <tr>
+                                <th class="three">IP</th>
+                                <th class="three">Domain</th>
+                                <!-- <th class="three">Del</th> -->
+                            </tr>
+                        </thead>
+                        <tbody id="domainsstablebody">
+                        </tbody>
+                    </table>
                 </div>
                 <div class="settingrectfooter">
+                    <button id="add_local_domain_button" class="hiddenbutton settingrectfooterbutton">Add Local Domain</button>
                     <button id="add_dns_server_button" class="hiddenbutton settingrectfooterbutton">Add DNS server</button>
                     <button class="settingrectfooterbutton" id="set_dns_settings">Confirm</button>
                 </div>
@@ -138,7 +151,7 @@
         <div class="formbody adddnsserverformbody">
             <h1 class="formheader" id="adddnsserverform">Add DNS server</h1>
             <div class="forminputbody adddnsserverform">
-                <label for="adddnsserverinput" class="forminputlabel"></label>
+                <label for="adddnsserverinput" class="forminputlabel">Server IP</label>
                 <input required type="text" class="forminput" id="adddnsserverinput">
             </div>
             <div class="forminputbody confirmform">
@@ -148,6 +161,25 @@
         </div>
     </div>
     <!-- add DNS server form -->
+     <!-- add local domain form -->
+    <div class="form" id="addlocaldomainform">
+        <div class="formbody addlocaldomainformbody">
+            <h1 class="formheader" id="addlocaldomainform">Add Local Domain</h1>
+            <div class="forminputbody addlocaldomainform">
+                <label for="ipinput" class="forminputlabel">IP</label>
+                <input required type="text" class="forminput" id="ipinput">
+            </div>
+            <div class="forminputbody addlocaldomainform">
+                <label for="domaininput" class="forminputlabel">Domain</label>
+                <input required type="text" class="forminput" id="domaininput">
+            </div>
+            <div class="forminputbody confirmform">
+                <button class="formbutton" id="addlocaldomaincancel">Cancel</button>
+                <button class="formbutton" id="addlocaldomainconfirm">Add</button>
+            </div>
+        </div>
+    </div>
+    <!-- add local domain form -->
     <!-- loader -->
     <div class="loader">
         <h1 id="loaderheader">Reboting</h1>

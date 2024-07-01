@@ -12,6 +12,8 @@ const routes = {
     dns_status_set: () => [host, prefix, 'settings', 'dns', 'set'].join('/'),
     dns_servers_get: () => [host, prefix, 'settings', 'dns', 'servers', 'get'].join('/'),
     dns_servers_set: () => [host, prefix, 'settings', 'dns', 'servers', 'set'].join('/'),
+    dns_local_domains_get: () => [host, prefix, 'settings', 'dns', 'domains', 'get'].join('/'),
+    dns_local_domains_set: () => [host, prefix, 'settings', 'dns', 'domains', 'set'].join('/'),
 
     ftp_status: () => [host, prefix, 'settings', 'ftp', 'get'].join('/'),
     ftp_status_set: () => [host, prefix, 'settings', 'ftp', 'set'].join('/'),

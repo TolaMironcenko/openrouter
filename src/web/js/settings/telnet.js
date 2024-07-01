@@ -8,7 +8,6 @@ const get_telnet_enabled_status = () => {
         method: 'POST',
         body: `{"token":"${localStorage.getItem("token")}"}`
     }).then(res => res.json()).then(jsondata => {
-        console.log(jsondata)
         if (jsondata.enabled === '1') {
             telnetenabled.checked = true
             addtelnetuserbutton.classList.add('active')

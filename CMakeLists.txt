@@ -11,8 +11,9 @@ add_executable(
     
     src/settings/telnet/telnet.cpp
 
-    src/settings/dns/dns.cpp
-    src/settings/dns/dns_servers.cpp
+    src/settings/dns/enabled.cpp
+    src/settings/dns/servers.cpp
+    src/settings/dns/local_domains.cpp
 
     src/settings/ftp/ftp.cpp
 

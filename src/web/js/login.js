@@ -26,15 +26,12 @@ const login = async (username, password) => {
         body: `{"username":"${username}","password":"${password}"}`
     }).then(data => data.json()).then(jsondata => jsondata).catch((error) => {
         if (error.message === "Unexpected end of JSON input") {
-            console.log("error")
             notification(`Ошибка на сервере: Создайте файл users.json и запишите в него первого пользователя`, "error")
         } else {
-            console.log("error")
             notification(`Ошибка на сервере: ${error}`, "error")
         }
     })
     if (response.status === "403") {
-        console.log("Неправильный логин или пароль")
         notification("Неправильный логин или пароль", "error")
     }
     if (response.token) {
