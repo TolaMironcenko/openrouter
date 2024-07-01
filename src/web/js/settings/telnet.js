@@ -3,6 +3,8 @@ const telnetsettingbody = document.querySelector('.telnetsettingbody')
 const settelnetsettingsbutton = document.querySelector('#set_telnet_settings')
 const addtelnetuserbutton = document.querySelector('#add_telnet_user_button')
 
+const telnetportinput = document.querySelector('#telnetportinput')
+
 const get_telnet_enabled_status = () => {
     fetch(routes.telnet_status(), {
         method: 'POST',
@@ -12,7 +14,7 @@ const get_telnet_enabled_status = () => {
             telnetenabled.checked = true
             addtelnetuserbutton.classList.add('active')
             addtelnetuserbutton.parentElement.classList.remove('onebutton')
-            // telnetsettingbody.classList.add('active')
+            telnetsettingbody.classList.add('active')
             return;
         } else {
             addtelnetuserbutton.parentElement.classList.add('onebutton')
@@ -52,3 +54,14 @@ telnetenabled.addEventListener('click', () => {
 settelnetsettingsbutton.addEventListener('click', () => {
     get_confirm_form("Confirm telnet settings?", set_telnet_enabled_status)
 })
+
+const get_telnet_port = () => {
+    fetch(routes.telnet_port_get(), {
+        method: 'POST',
+        body: `{"token":"${localStorage.getItem("token")}"}`
+    }).then(data => data.json()).then(jsondata => {
+        telnetportinput.value = jsondata.port
+    }).catch((error) => {
+        notification(`Ошибка на сервере: ${error}`, "error")
+    })
+}

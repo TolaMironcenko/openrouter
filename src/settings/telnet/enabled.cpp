@@ -36,7 +36,7 @@ void get_telnet(const httplib::Request &request, httplib::Response &response) {
             response.set_content(resjson.dump().c_str(), JSON_TYPE);
             return;
         }
-        std::ifstream telnetfile("/etc/openrouter/telnet");
+        std::ifstream telnetfile("/etc/openrouter/telnet/enabled");
         int telnet_enabled;
         telnetfile >> telnet_enabled;
         telnetfile.close();
@@ -77,7 +77,7 @@ void set_telnet(const httplib::Request &request, httplib::Response &response) {
             response.set_content(resjson.dump().c_str(), JSON_TYPE);
             return;
         }
-        std::ofstream telnetfileout("/etc/openrouter/telnet");
+        std::ofstream telnetfileout("/etc/openrouter/telnet/enabled");
         std::string new_telnet_enabled = json_body["enabled"];
         if (new_telnet_enabled == "0") {
             system("/etc/init.d/telnet stop");

@@ -9,7 +9,8 @@ add_executable(
     src/openrouter.cpp 
     src/security/cors.cpp
     
-    src/settings/telnet/telnet.cpp
+    src/settings/telnet/enabled.cpp
+    src/settings/telnet/port.cpp
 
     src/settings/dns/enabled.cpp
     src/settings/dns/servers.cpp
