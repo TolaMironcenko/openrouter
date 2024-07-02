@@ -6,5 +6,6 @@
 #define JWT_SECRET_KEY "secret"
 #define STRING403 R"({"status":"403"})"
 #define JSON_TYPE "application/json"
+#define PLAIN_TEXT_TYPE "text/plain"
 
 #endif // TYPES_H

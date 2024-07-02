@@ -28,7 +28,8 @@ const routes = {
     ftp_status: () => [host, prefix, 'settings', 'ftp', 'get'].join('/'),
     ftp_status_set: () => [host, prefix, 'settings', 'ftp', 'set'].join('/'),
 
-    reboot: () => [host, prefix, 'reboot'].join('/')
+    reboot: () => [host, prefix, 'reboot'].join('/'),
+    syslog: () => [host, prefix, 'syslog'].join('/'),
     // all_users: () => [host, prefix, 'users', 'all'].join('/'),
     // access: () => [host, prefix, 'access'].join('/'),
     // adduser: () => [host, prefix, 'users', 'add'].join('/'),

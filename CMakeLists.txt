@@ -23,4 +23,6 @@ add_executable(
     src/settings/ftp/ftp.cpp
 
     src/reboot/reboot.cpp
+
+    src/syslog/syslog.cpp
 )  

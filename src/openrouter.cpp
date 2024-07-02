@@ -6,6 +6,7 @@
 #include "settings/dns/dns.hpp"
 #include "settings/ftp/ftp.hpp"
 #include "reboot/reboot.hpp"
+#include "syslog/syslog.hpp"
 
 #define CORS_ENABLE
 #include "security/cors.hpp"
@@ -36,6 +37,8 @@ int main() {
     srv.Post("/api/settings/ftp/set", set_ftp);
 
     srv.Post("/api/reboot", reboot);
+
+    srv.Get("/api/syslog", syslog);
 
     srv.Options("/(.*)", set_cors_headers);
 

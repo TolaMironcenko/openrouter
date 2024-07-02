@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/syslog.css">
     <title>Openrouter Admin</title>
 </head>
 <body>
@@ -17,7 +18,8 @@
         <!-- header -->
         <header class="header">
             <div class="links">
-                <button class="linkbutton">Settings</button>
+                <button class="linkbutton" id="syslogbutton">Syslog</button>
+                <button class="linkbutton" id="settingsbutton">Settings</button>
                 <button class="linkbutton" id="rebootbutton">Reboot</button>
             </div>
             <h1>Openrouter Admin</h1>
@@ -28,120 +30,128 @@
         </header>
         <!-- header -->
         <!-- settings block -->
-        <section class="settingssection">
-            <!-- telnet settings -->
-            <div class="settingrect">
-                <div class="settingrectheader">
-                    <h2>Telnet</h2>
-                    <div class="checkbox-wrapper-2">
-                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="telnetenable">
+        <div class="section">
+            <section class="settingssection">
+                <!-- telnet settings -->
+                <div class="settingrect">
+                    <div class="settingrectheader">
+                        <h2>Telnet</h2>
+                        <div class="checkbox-wrapper-2">
+                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="telnetenable">
+                        </div>
+                    </div>
+                    <div class="settingrectbody telnetsettingbody">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <label for="telnetportinput" class="forminputlabel">Port</label>
+                            <input type="text" id="telnetportinput" class="forminput">
+                        </div>
+                        <table class="telnetuserstable">
+                            <thead>
+                                <tr>
+                                    <th>username</th>
+                                    <th>password</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><th>No users</th></tr>
+                                <!-- <tr>
+                                    <th>root</th>
+                                    <th>2808</th>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="settingrectfooter">
+                        <button class="settingrectfooterbutton hiddenbutton" id="add_telnet_user_button">Add telnet user</button>
+                        <button class="settingrectfooterbutton" id="set_telnet_settings">Confirm</button>
                     </div>
                 </div>
-                <div class="settingrectbody telnetsettingbody">
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                        <label for="telnetportinput" class="forminputlabel">Port</label>
-                        <input type="text" id="telnetportinput" class="forminput">
+                <!-- telnet settings -->
+                <!-- DNS settings -->
+                <div class="settingrect">
+                    <div class="settingrectheader">
+                        <h2>DNS</h2>
+                        <div class="checkbox-wrapper-2">
+                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="dnsenable">
+                        </div>
                     </div>
-                    <table class="telnetuserstable">
-                        <thead>
-                            <tr>
-                                <th>username</th>
-                                <th>password</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><th>No users</th></tr>
-                            <!-- <tr>
-                                <th>root</th>
-                                <th>2808</th>
-                            </tr> -->
-                        </tbody>
-                    </table>
-                </div>
-                <div class="settingrectfooter">
-                    <button class="settingrectfooterbutton hiddenbutton" id="add_telnet_user_button">Add telnet user</button>
-                    <button class="settingrectfooterbutton" id="set_telnet_settings">Confirm</button>
-                </div>
-            </div>
-            <!-- telnet settings -->
-            <!-- DNS settings -->
-            <div class="settingrect">
-                <div class="settingrectheader">
-                    <h2>DNS</h2>
-                    <div class="checkbox-wrapper-2">
-                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="dnsenable">
+                    <div class="settingrectbody" id="dnssettingsbody">
+                        <table class="dnsservers">
+                            <thead>
+                                <tr><th>DNS servers</th></tr>
+                            </thead>
+                            <tbody id="dnsserverstablebody">
+                            </tbody>
+                        </table>
+                        <h3>Domains Table</h3>
+                        <table class="domains">
+                            <thead>
+                                <tr>
+                                    <th class="three">IP</th>
+                                    <th class="three">Domain</th>
+                                    <!-- <th class="three">Del</th> -->
+                                </tr>
+                            </thead>
+                            <tbody id="domainsstablebody">
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-                <div class="settingrectbody" id="dnssettingsbody">
-                    <table class="dnsservers">
-                        <thead>
-                            <tr><th>DNS servers</th></tr>
-                        </thead>
-                        <tbody id="dnsserverstablebody">
-                        </tbody>
-                    </table>
-                    <h3>Domains Table</h3>
-                    <table class="domains">
-                        <thead>
-                            <tr>
-                                <th class="three">IP</th>
-                                <th class="three">Domain</th>
-                                <!-- <th class="three">Del</th> -->
-                            </tr>
-                        </thead>
-                        <tbody id="domainsstablebody">
-                        </tbody>
-                    </table>
-                </div>
-                <div class="settingrectfooter">
-                    <button id="add_local_domain_button" class="hiddenbutton settingrectfooterbutton">Add Local Domain</button>
-                    <button id="add_dns_server_button" class="hiddenbutton settingrectfooterbutton">Add DNS server</button>
-                    <button class="settingrectfooterbutton" id="set_dns_settings">Confirm</button>
-                </div>
-            </div>
-            <!-- DNS settings -->
-            <!-- ftp settings -->
-            <div class="settingrect">
-                <div class="settingrectheader">
-                    <h2>Ftp</h2>
-                    <div class="checkbox-wrapper-2">
-                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="ftpenable">
+                    <div class="settingrectfooter">
+                        <button id="add_local_domain_button" class="hiddenbutton settingrectfooterbutton">Add Local Domain</button>
+                        <button id="add_dns_server_button" class="hiddenbutton settingrectfooterbutton">Add DNS server</button>
+                        <button class="settingrectfooterbutton" id="set_dns_settings">Confirm</button>
                     </div>
                 </div>
-                <div class="settingrectfooter">
-                    <!-- <button>Add Ftp server</button> -->
-                    <button class="settingrectfooterbutton" id="set_ftp_settings">Confirm</button>
-                </div>
-            </div>
-            <!-- ftp settings -->
-            <!-- ssh settings -->
-            <div class="settingrect">
-                <div class="settingrectheader">
-                    <h2>SSH</h2>
-                    <div class="checkbox-wrapper-2">
-                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="sshenable">
+                <!-- DNS settings -->
+                <!-- ftp settings -->
+                <div class="settingrect">
+                    <div class="settingrectheader">
+                        <h2>Ftp</h2>
+                        <div class="checkbox-wrapper-2">
+                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="ftpenable">
+                        </div>
+                    </div>
+                    <div class="settingrectfooter">
+                        <!-- <button>Add Ftp server</button> -->
+                        <button class="settingrectfooterbutton" id="set_ftp_settings">Confirm</button>
                     </div>
                 </div>
-                <div class="settingrectbody" id="sshsettingsbody">
-                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                        <label for="sshportinput" class="forminputlabel">Port</label>
-                        <input type="text" id="sshportinput" class="forminput">
+                <!-- ftp settings -->
+                <!-- ssh settings -->
+                <div class="settingrect">
+                    <div class="settingrectheader">
+                        <h2>SSH</h2>
+                        <div class="checkbox-wrapper-2">
+                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="sshenable">
+                        </div>
                     </div>
-                    <table class="sshkeys">
-                        <thead>
-                            <tr><th>SSH keys</th></tr>
-                        </thead>
-                        <tbody id="sshkeystablebody">
-                        </tbody>
-                    </table>
+                    <div class="settingrectbody" id="sshsettingsbody">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <label for="sshportinput" class="forminputlabel">Port</label>
+                            <input type="text" id="sshportinput" class="forminput">
+                        </div>
+                        <table class="sshkeys">
+                            <thead>
+                                <tr><th>SSH keys</th></tr>
+                            </thead>
+                            <tbody id="sshkeystablebody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="settingrectfooter onebutton">
+                        <button id="add_ssh_key" class="hiddenbutton settingrectfooterbutton">Add SSH key</button>
+                        <button class="settingrectfooterbutton" id="set_ssh_settings">Confirm</button>
+                    </div>
                 </div>
-                <div class="settingrectfooter onebutton">
-                    <button id="add_ssh_key" class="hiddenbutton settingrectfooterbutton">Add SSH key</button>
-                    <button class="settingrectfooterbutton" id="set_ssh_settings">Confirm</button>
-                </div>
-            </div>
-            <!-- ssh settings -->
-        </section>
+                <!-- ssh settings -->
+            </section>
+            <!-- syslog block -->
+            <section class="syslogsection">
+                <h2 class="syslogheader">Syslog</h2>
+                <div class="syslogdata"></div>
+            </section>
+            <!-- syslog block -->
+        </div>
         <!-- settings block -->
     </section>
 
@@ -219,6 +229,7 @@
         </div>
     </div>
     <!-- loader -->
+    <script src="js/header.js"></script>
     <script src="js/routes.js"></script>
     <script src="js/notification.js"></script>
     <script src="js/loader.js"></script>
@@ -231,6 +242,7 @@
     <script src="js/settings/settings.js"></script>
 
     <script src="js/reboot.js"></script>
+    <script src="js/syslog.js"></script>
     <script src="js/login.js"></script>
 </body>
 </html>
