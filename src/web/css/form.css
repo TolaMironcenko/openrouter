@@ -35,7 +35,7 @@
     align-items: center;
     justify-content: center;
     background-color: hsl(from black h s 20%);
-    opacity: 0.7;
+    /* opacity: 0.7; */
     border-radius: 20px;
     padding: 10px;
 }
