@@ -74,7 +74,7 @@
 .settingrect {
   width: 25%;
   height: max-content;
-  background-color: hsl(from black h s 20%);
+  background-color: gray;
   padding: 20px;
   border-radius: 20px;
   display: flex;
