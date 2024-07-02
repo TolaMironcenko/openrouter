@@ -32,5 +32,7 @@ const set_ftp_enabled_status = () => {
 }
 
 setftpsettingsbutton.addEventListener('click', () =>{
-    get_confirm_form("Confirm ftp settings?", set_ftp_enabled_status)
+    if (confirm("Confirm ftp settings?")) {
+        set_ftp_enabled_status()
+    }
 })

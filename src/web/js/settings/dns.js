@@ -65,7 +65,9 @@ const set_dns_settings = () => {
 }
 
 setdnssettingsbutton.addEventListener('click', () =>{
-    get_confirm_form("Confirm DNS settings?", set_dns_settings)
+    if (confirm("Confirm DNS settings?")) {
+        set_dns_settings()
+    }
 })
 
 dnsenabled.addEventListener('click', () => {
@@ -144,13 +146,19 @@ adddnsserverconfirmbutton.addEventListener('click', () => {
     if (adddnsserverinput.value === "") {
         return
     }
-    get_confirm_form(`Confirm DNS settings? (Add DNS server: ${adddnsserverinput.value})`, set_dns_server, cancel_confirm_add_dns_server)
+    if (confirm(`Confirm DNS settings? (Add DNS server: ${adddnsserverinput.value})`)) {
+        set_dns_server()
+    } else {
+        cancel_confirm_add_dns_server
+    }
 })
 
 dnsserverstablebody.addEventListener('click', (e) => {
     if (e.target.classList.contains('deldnsserverbutton')) {
         dnsservers.splice(dnsservers.indexOf(e.target.id), 1)
-        set_dns_server()
+        if (confirm(`Confirm DNS settings? (delete DNS server: ${e.target.id})`)) {
+            set_dns_server()
+        }
         get_dns_server()
     }
 })
@@ -213,21 +221,22 @@ addlocaldomaincancelbutton.addEventListener('click', () => {
 
 addlocaldomainconfirmbutton.addEventListener('click', () => {
     addlocaldomainform.classList.remove('active')
-    get_confirm_form(`Confirm DNS settings? (Add Local Domain: ${ipinput.value} ${domaininput.value})`, () => {
+    if (confirm(`Confirm DNS settings? (Add Local Domain: ${ipinput.value} ${domaininput.value})`)) {
         localdomains.push({"ip": ipinput.value, "domain": domaininput.value});
         set_local_domains()
         ipinput.value = ""
         domaininput.value = ""
-    }, cancel_confirm_add_localdomain)
+    } else {
+        cancel_confirm_add_localdomain()
+    }
 })
 
 domainstablebody.addEventListener('click', (e) => {
     if (e.target.classList.contains('deldomain')) {
-        // const delel = localdomains.find(dom => dom.domain === e.target.id)
-        // delete localdomains.domains[localdomains.indexOf(delel)]
         localdomains.splice(localdomains.indexOf(localdomains.find(dom => dom.domain === e.target.id)), 1)
-        // get_confirm_form(`Confirm DNS settings? (delete Local Domain: ${e.target.id})`, () => set_local_domains(localdomains))
-        set_local_domains()
+        if (confirm(`Confirm DNS settings? (delete Local Domain: ${e.target.id})`)) {
+            set_local_domains()
+        }
         get_local_domains()
     }
 })

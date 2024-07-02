@@ -1,7 +1,9 @@
 const rebootbutton = document.querySelector('#rebootbutton')
 
 rebootbutton.addEventListener('click', () => {
-    get_confirm_form("Confirm reboot?", reboot)
+    if (confirm("Confirm reboot?")) {
+        reboot()
+    }
 })
 
 const reboot = () => {

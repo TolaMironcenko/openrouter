@@ -114,6 +114,33 @@
                 </div>
             </div>
             <!-- ftp settings -->
+            <!-- ssh settings -->
+            <div class="settingrect">
+                <div class="settingrectheader">
+                    <h2>SSH</h2>
+                    <div class="checkbox-wrapper-2">
+                        <input type="checkbox" class="sc-gJwTLC ikxBAC" id="sshenable">
+                    </div>
+                </div>
+                <div class="settingrectbody" id="sshsettingsbody">
+                    <div style="display:flex;align-items:center;justify-content:space-between;">
+                        <label for="sshportinput" class="forminputlabel">Port</label>
+                        <input type="text" id="sshportinput" class="forminput">
+                    </div>
+                    <table class="sshkeys">
+                        <thead>
+                            <tr><th>SSH keys</th></tr>
+                        </thead>
+                        <tbody id="sshkeystablebody">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="settingrectfooter onebutton">
+                    <button id="add_ssh_key" class="hiddenbutton settingrectfooterbutton">Add SSH key</button>
+                    <button class="settingrectfooterbutton" id="set_ssh_settings">Confirm</button>
+                </div>
+            </div>
+            <!-- ssh settings -->
         </section>
         <!-- settings block -->
     </section>
@@ -200,6 +227,7 @@
     <script src="js/settings/telnet.js"></script>
     <script src="js/settings/dns.js"></script>
     <script src="js/settings/ftp.js"></script>
+    <script src="js/settings/ssh.js"></script>
     <script src="js/settings/settings.js"></script>
 
     <script src="js/reboot.js"></script>

@@ -66,6 +66,7 @@
   }
   
 .settingssection {
+  padding: 10px;
   display: flex;
   /* flex-direction: column; */
   gap: 10px;
@@ -93,7 +94,7 @@
 .settingrectbody {
   width: 100%;
   max-height: 0;
-  overflow: hidden;
+  overflow: auto;
   transition: 0.3s;
 }
 
@@ -103,6 +104,7 @@
 }
 
 .settingrectbody>table {
+  position: relative;
   width: 100%;
   text-align: left;
   transition: 0.3s;
@@ -178,6 +180,8 @@ tbody>tr>th {
   padding: 10px;
   border-radius: 10px;
   width: 50%;
+  max-width:425px;
+  overflow-x: auto;
   /* display: flex;
   align-items: center;
   justify-content: space-between; */

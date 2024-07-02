@@ -2,6 +2,7 @@
 #include <httplib.h>
 #include <colors.h>
 #include "settings/telnet/telnet.hpp"
+#include "settings/ssh/ssh.hpp"
 #include "settings/dns/dns.hpp"
 #include "settings/ftp/ftp.hpp"
 #include "reboot/reboot.hpp"
@@ -16,6 +17,13 @@ int main() {
     srv.Post("/api/settings/telnet/set", set_telnet);
     srv.Post("/api/settings/telnet/port/get", get_telnet_port);
     srv.Post("/api/settings/telnet/port/set", set_telnet_port);
+
+    srv.Post("/api/settings/ssh/status/get", get_ssh_status);
+    srv.Post("/api/settings/ssh/status/set", set_ssh_status);
+    srv.Post("/api/settings/ssh/keys/get", get_ssh_keys);
+    srv.Post("/api/settings/ssh/keys/set", set_ssh_keys);
+    srv.Post("/api/settings/ssh/port/get", get_ssh_port);
+    srv.Post("/api/settings/ssh/port/set", set_ssh_port);
 
     srv.Post("/api/settings/dns/get", get_dns);
     srv.Post("/api/settings/dns/set", set_dns);

@@ -7,4 +7,8 @@ const get_all_settings = () => {
 
     get_telnet_enabled_status()
     get_telnet_port()
+
+    get_ssh_status()
+    get_ssh_keys()
+    get_ssh_port()
 }

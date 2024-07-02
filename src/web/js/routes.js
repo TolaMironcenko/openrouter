@@ -11,6 +11,13 @@ const routes = {
     telnet_port_get: () => [host, prefix, 'settings', 'telnet', 'port', 'get'].join('/'),
     telnet_port_set: () => [host, prefix, 'settings', 'telnet', 'port', 'set'].join('/'),
 
+    ssh_status_get: () => [host, prefix, 'settings', 'ssh', 'status', 'get'].join('/'),
+    ssh_status_set: () => [host, prefix, 'settings', 'ssh', 'status', 'set'].join('/'),
+    ssh_keys_get: () => [host, prefix, 'settings', 'ssh', 'keys', 'get'].join('/'),
+    ssh_keys_set: () => [host, prefix, 'settings', 'ssh', 'keys', 'set'].join('/'),
+    ssh_port_get: () => [host, prefix, 'settings', 'ssh', 'port', 'get'].join('/'),
+    ssh_port_set: () => [host, prefix, 'settings', 'ssh', 'port', 'set'].join('/'),
+
     dns_status: () => [host, prefix, 'settings', 'dns', 'get'].join('/'),
     dns_status_set: () => [host, prefix, 'settings', 'dns', 'set'].join('/'),
     dns_servers_get: () => [host, prefix, 'settings', 'dns', 'servers', 'get'].join('/'),

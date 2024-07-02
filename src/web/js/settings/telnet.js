@@ -59,7 +59,9 @@ const set_telnet_settings = () => {
 }
 
 settelnetsettingsbutton.addEventListener('click', () => {
-    get_confirm_form("Confirm telnet settings?", set_telnet_settings)
+    if (confirm("Confirm telnet settings?")) {
+        set_telnet_settings()
+    }
 })
 
 const get_telnet_port = () => {
