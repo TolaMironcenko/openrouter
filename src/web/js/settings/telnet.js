@@ -43,7 +43,7 @@ telnetenabled.addEventListener('click', () => {
     if (telnetenabled.checked) {
         addtelnetuserbutton.classList.add('active')
         addtelnetuserbutton.parentElement.classList.remove('onebutton')
-        // telnetsettingbody.classList.add('active')
+        telnetsettingbody.classList.add('active')
     } else {
         telnetsettingbody.classList.remove('active')
         addtelnetuserbutton.classList.remove('active')
@@ -51,8 +51,15 @@ telnetenabled.addEventListener('click', () => {
     }
 })
 
+const set_telnet_settings = () => {
+    set_telnet_enabled_status()
+    if (telnetenabled.checked) {
+        set_telnet_port()
+    }
+}
+
 settelnetsettingsbutton.addEventListener('click', () => {
-    get_confirm_form("Confirm telnet settings?", set_telnet_enabled_status)
+    get_confirm_form("Confirm telnet settings?", set_telnet_settings)
 })
 
 const get_telnet_port = () => {
@@ -62,6 +69,20 @@ const get_telnet_port = () => {
     }).then(data => data.json()).then(jsondata => {
         telnetportinput.value = jsondata.port
     }).catch((error) => {
+        notification(`Ошибка на сервере: ${error}`, "error")
+    })
+}
+
+const set_telnet_port = () => {
+    start_loader()
+    fetch(routes.telnet_port_set(), {
+        method: 'POST',
+        body: `{"token":"${localStorage.getItem("token")}","port":"${telnetportinput.value}"}`
+    }).then(data => data.json()).then(jsondata => {
+        stop_loader()
+        telnetportinput.value = jsondata.port
+    }).catch((error) => {
+        stop_loader()
         notification(`Ошибка на сервере: ${error}`, "error")
     })
 }

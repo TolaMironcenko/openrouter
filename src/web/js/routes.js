@@ -9,6 +9,7 @@ const routes = {
     telnet_status: () => [host, prefix, 'settings', 'telnet', 'get'].join('/'),
     telnet_status_set: () => [host, prefix, 'settings', 'telnet', 'set'].join('/'),
     telnet_port_get: () => [host, prefix, 'settings', 'telnet', 'port', 'get'].join('/'),
+    telnet_port_set: () => [host, prefix, 'settings', 'telnet', 'port', 'set'].join('/'),
 
     dns_status: () => [host, prefix, 'settings', 'dns', 'get'].join('/'),
     dns_status_set: () => [host, prefix, 'settings', 'dns', 'set'].join('/'),

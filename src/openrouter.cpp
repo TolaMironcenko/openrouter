@@ -15,6 +15,7 @@ int main() {
     srv.Post("/api/settings/telnet/get", get_telnet);
     srv.Post("/api/settings/telnet/set", set_telnet);
     srv.Post("/api/settings/telnet/port/get", get_telnet_port);
+    srv.Post("/api/settings/telnet/port/set", set_telnet_port);
 
     srv.Post("/api/settings/dns/get", get_dns);
     srv.Post("/api/settings/dns/set", set_dns);

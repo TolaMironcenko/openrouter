@@ -88,7 +88,7 @@ void set_telnet(const httplib::Request &request, httplib::Response &response) {
         }
         telnetfileout << stoi(new_telnet_enabled);
         telnetfileout.close();
-        std::ifstream telnetfile("/etc/openrouter/telnet");
+        std::ifstream telnetfile("/etc/openrouter/telnet/enabled");
         int telnet_enabled;
         telnetfile >> telnet_enabled;
         telnetfile.close();
