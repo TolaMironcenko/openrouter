@@ -187,6 +187,10 @@ tbody>tr>th {
   .settingrect {
     width: 50%;
   }
+  .settingssection {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 600px) {

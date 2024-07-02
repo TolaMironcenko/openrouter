@@ -18,3 +18,12 @@ header {
     align-items: center;
     gap: 10px;
 }
+
+@media screen and (max-width: 400px) {
+    header>h1 {
+        font-size: 15px;
+    }
+    .userbuttons>h1 {
+        font-size: 15px;
+    }
+}
