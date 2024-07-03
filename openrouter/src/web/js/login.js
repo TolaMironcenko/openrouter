@@ -44,6 +44,7 @@ const login = async (username, password) => {
         await get_user_data()
         loginusername.value = ""
         loginpassword.value = ""
+        settingssection.classList.add('active')
     }
 }
 

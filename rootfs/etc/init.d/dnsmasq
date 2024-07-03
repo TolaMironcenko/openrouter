@@ -8,6 +8,7 @@ case "$1" in
 		printf "Starting dnsmasq "
 		sleep 1
 		/usr/bin/dnsmasq --user=dnsmasq --pid-file=/var/run/dnsmasq.pid
+		echo "nameserver 0.0.0.0" > /etc/resolv.conf
 		if [[ "$?" == "0" ]]; then
 			echo "nameserver 0.0.0.0" > /etc/resolv.conf
 			printf "[$Green OK $Color_off]\n"
