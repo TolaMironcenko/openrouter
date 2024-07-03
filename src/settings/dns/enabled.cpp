@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include "../../routes.hpp"
 #include "../../types.hpp"
+#include <syslog.h>
 
 #define DNS_REQUIRED_STRING R"({"required":"[token,enabled]"})"
 
@@ -78,9 +79,11 @@ void set_dns(const httplib::Request &request, httplib::Response &response) {
         if (new_dns_enabled == "0") {
             system("/etc/init.d/dnsmasq stop");
             system("rm /etc/rc.d/60dnsmasq");
+            syslog(LOG_INFO, "DNS is disabled");
         } else {
             system("/etc/init.d/dnsmasq restart");
             system("ln -sv /etc/init.d/dnsmasq /etc/rc.d/60dnsmasq");
+            syslog(LOG_INFO, "DNS is enabled");
         }
         dnsfileout << stoi(new_dns_enabled);
         dnsfileout.close();

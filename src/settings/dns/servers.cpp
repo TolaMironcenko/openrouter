@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include "../../routes.hpp"
 #include "../../types.hpp"
+#include <syslog.h>
 
 // #define DNS_REQUIRED_STRING R"({"required":"[token,enabled]"})"
 
@@ -90,6 +91,7 @@ void set_dns_servers(const httplib::Request &request, httplib::Response &respons
         }
         dnsserversfile.close();
         system("/etc/init.d/dnsmasq restart");
+        syslog(LOG_INFO, "DNS servers changed");
         std::string responsedata = R"({"success":"true"})";
         response.set_content(responsedata, JSON_TYPE);
     }

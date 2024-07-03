@@ -7,6 +7,7 @@
 #include "settings/ftp/ftp.hpp"
 #include "reboot/reboot.hpp"
 #include "syslog/syslog.hpp"
+#include <syslog.h>
 
 #define CORS_ENABLE
 #include "security/cors.hpp"
@@ -38,7 +39,7 @@ int main() {
 
     srv.Post("/api/reboot", reboot);
 
-    srv.Get("/api/syslog", syslog);
+    srv.Get("/api/syslog", get_syslog);
 
     srv.Options("/(.*)", set_cors_headers);
 
@@ -49,6 +50,7 @@ int main() {
     std::cout << GREEN << "Starting" << RESET << " server on [ " << YELLOW
             << "0.0.0.0" << RESET << ":" << CYAN << "43244" << RESET << " ]" << std::endl;
 
+    syslog(LOG_INFO, "openrouter administration software started.");
     srv.listen("0.0.0.0", 80);
     return 0;
 }

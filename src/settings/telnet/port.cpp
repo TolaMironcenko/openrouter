@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <syslog.h>
 
 #define TELNET_PORT_REQUIRED_STRING R"({"required":"[token,port]"})"
 
@@ -82,6 +83,8 @@ void set_telnet_port(const httplib::Request &request, httplib::Response &respons
         telnetportfileout << stoi(new_telnet_port);
         telnetportfileout.close();
         system("/etc/init.d/telnet restart");
+        std::string syslogstring = "Telnet port changed to " + new_telnet_port;
+        syslog(LOG_INFO, syslogstring.c_str());
         std::ifstream telnetportfile("/etc/openrouter/telnet/port");
         int telnet_port;
         telnetportfile >> telnet_port;

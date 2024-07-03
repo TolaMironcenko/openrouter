@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include "../../routes.hpp"
 #include "../../types.hpp"
+#include <syslog.h>
 
 void get_local_domains(const httplib::Request &request, httplib::Response &response) {
     std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
@@ -92,6 +93,7 @@ void set_local_domains(const httplib::Request &request, httplib::Response &respo
         }
         domainsfile.close();
         system("/etc/init.d/dnsmasq restart");
+        syslog(LOG_INFO, "DNS local domains changed");
         std::string responsedata = R"({"success":"true"})";
         response.set_content(responsedata, JSON_TYPE);
     }

@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include "../../routes.hpp"
 #include "../../types.hpp"
+#include <syslog.h>
 
 #define SSH_REQUIRED_STRING R"({"required":"[token,status]"})"
 
@@ -77,9 +78,11 @@ void set_ssh_status(const httplib::Request &request, httplib::Response &response
         if (new_ssh_status == "0") {
             system("/etc/init.d/ssh stop");
             system("rm /etc/rc.d/75ssh");
+            syslog(LOG_INFO, "SSH is disabled");
         } else {
             system("/etc/init.d/ssh start");
             system("ln -sv /etc/init.d/ssh /etc/rc.d/75ssh");
+            syslog(LOG_INFO, "SSH is enabled");
         }
         sshfileout << stoi(new_ssh_status);
         sshfileout.close();

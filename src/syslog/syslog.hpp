@@ -3,6 +3,6 @@
 
 #include <httplib.h>
 
-void syslog(const httplib::Request &request, httplib::Response &response);
+void get_syslog(const httplib::Request &request, httplib::Response &response);
 
 #endif //SYSLOG_HPP

@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include "../../routes.hpp"
 #include "../../types.hpp"
+#include <syslog.h>
 
 #define KEYS_PATH "/root/.ssh/authorized_keys"
 
@@ -87,6 +88,7 @@ void set_ssh_keys(const httplib::Request &request, httplib::Response &response) 
         }
         keysfile.close();
         system("/etc/init.d/ssh restart");
+        syslog(LOG_INFO, "SSH keys changed");
         std::string responsedata = R"({"success":"true"})";
         response.set_content(responsedata, JSON_TYPE);
     }

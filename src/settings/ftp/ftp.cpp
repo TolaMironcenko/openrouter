@@ -3,6 +3,7 @@
 #include <json.hpp>
 #include "../../routes.hpp"
 #include "../../types.hpp"
+#include <syslog.h>
 
 #define FTP_REQUIRED_STRING R"({"required":"[token,enabled]"})"
 
@@ -78,9 +79,11 @@ void set_ftp(const httplib::Request &request, httplib::Response &response) {
         if (new_ftp_enabled == "0") {
             system("/etc/init.d/ftp stop");
             system("rm /etc/rc.d/90ftp");
+            syslog(LOG_INFO, "Ftp is disabled");
         } else {
             system("/etc/init.d/ftp start");
             system("ln -sv /etc/init.d/ftp /etc/rc.d/90ftp");
+            syslog(LOG_INFO, "Ftp is enabled");
         }
         ftpfileout << stoi(new_ftp_enabled);
         ftpfileout.close();

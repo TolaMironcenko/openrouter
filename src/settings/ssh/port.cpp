@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <syslog.h>
 
 #define SSH_PORT_REQUIRED_STRING R"({"required":"[token,port]"})"
 #define SSH_PORT_PATH "/etc/openrouter/ssh/port"
@@ -90,6 +91,8 @@ void set_ssh_port(const httplib::Request &request, httplib::Response &response) 
         std::cout << systemrequest.str() << std::endl;
         system(systemrequest.str().c_str());
         system("/etc/init.d/ssh restart");
+        std::string syslogstring = "SSH port changed to " + new_ssh_port;
+        syslog(LOG_INFO, syslogstring.c_str());
         std::ifstream sshportfile(SSH_PORT_PATH);
         int ssh_port;
         sshportfile >> ssh_port;

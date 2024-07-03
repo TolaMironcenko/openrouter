@@ -10,7 +10,7 @@
 
 #define SYSLOG_FILE "/var/log/messages"
 
-void syslog(const httplib::Request &request, httplib::Response &response) {
+void get_syslog(const httplib::Request &request, httplib::Response &response) {
     std::stringstream responsedata;
     std::ifstream syslogfile(SYSLOG_FILE);
     responsedata << syslogfile.rdbuf();
