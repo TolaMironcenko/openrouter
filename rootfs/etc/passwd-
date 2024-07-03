@@ -1,0 +1,2 @@
+root:x:0:0:root:/root:/bin/sh
+dnsmasq:x:963:963:dnsmasq daemon:/:/usr/bin/nologin

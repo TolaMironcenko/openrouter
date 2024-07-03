@@ -1,0 +1,23 @@
+#!/bin/sh
+
+Green='\033[0;32m'
+Color_Off='\033[0m'
+Red='\033[0;31m'
+
+case "$1" in
+	start)
+		printf "Setting up hostname "
+		/bin/hostname -F /etc/hostname
+		if [[ "$?" == "0" ]]; then
+			printf "[$Green OK $Color_Off]\n"
+		else
+			printf "[$Red ERR $Color_Off]\n"
+		fi
+		;;
+    stop)
+        ;;
+    *)
+        echo "Hostname init script usage: $0 {start}"
+        return 1
+esac
+return $?

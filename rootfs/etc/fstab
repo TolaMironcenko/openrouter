@@ -1,0 +1,6 @@
+# Start /etc/fstab
+# disk  mountpoint  filesystem  options 0   0/1
+UUID=b1e5ea4e-0be6-4601-827e-b08f78f61709 / ext4 rw,relatime 0 0
+UUID=70f09a2f-f164-4279-98a9-9106899ef98a none swap defaults 0 0
+UUID=AE72-FCB8 /boot/EFI vfat rw,relatime 0 0
+# End /etc/fstab

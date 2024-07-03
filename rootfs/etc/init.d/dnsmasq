@@ -1,0 +1,40 @@
+#!/bin/sh
+Green='\033[0;32m'
+Color_off='\033[0m'
+Red='\033[0;31m'
+
+case "$1" in
+	start)
+		printf "Starting dnsmasq "
+		sleep 1
+		/usr/bin/dnsmasq --user=dnsmasq --pid-file=/var/run/dnsmasq.pid
+		if [[ "$?" == "0" ]]; then
+			echo "nameserver 0.0.0.0" > /etc/resolv.conf
+			printf "[$Green OK $Color_off]\n"
+		else
+			printf "[$Red ERR $Color_off]\n"
+		fi
+		;;
+	stop)
+		printf "\nStopping dnsmasq "
+		if [ -f /var/run/dnsmasq.pid ]; then
+			kill $(cat /var/run/dnsmasq.pid) &> /dev/null
+			if [[ "$?" == "0" ]]; then
+				printf "[$Green OK $Color_off]\n"
+			else
+				printf "[$Red ERR $Color_off]\n"
+			fi
+			rm /var/run/dnsmasq &> /dev/null
+		else
+			printf "[$Red Dnsmasq is not running $Color_off]\n"
+		fi
+		;;
+	restart|reload)
+		"$0" stop
+		"$0" start
+		;;
+	*)
+		echo "dnsmasq init script usage: $0 {start|stop|restart}"
+		return 1
+esac
+return $?

@@ -1,0 +1,60 @@
+#!/bin/sh
+
+init () {
+test -f $DAEMON || exit 0
+case "$1" in
+  start)
+    echo "Starting $DESC..."
+      if [ $LOG ] ; then
+        $DAEMON $PARAMS 2>>/var/log/$LOG &
+      else
+        $DAEMON $PARAMS &>/dev/null &
+      fi
+    echo $! > $PIDFILE
+    ;;
+  stop)
+    printf "\nStopping $DESC..."
+    if [ $STOP ] ; then
+      $STOP $PARAMS
+    else
+      [ -f $PIDFILE ] && kill $(cat $PIDFILE) &>/dev/null
+    fi
+    ;;
+  restart|reload)
+    "$0" stop
+    "$0" start
+    ;;
+  *)
+    echo "$NAME init script usage: $0 {start|stop|restart}"
+    return 1
+esac
+return $?
+}
+
+rc () {
+if [ -d /etc/rc.d ] && [ $0 == "/etc/init.d/rcK" ]; then
+    for x in $(ls -r /etc/rc.d/) ; do
+        /etc/rc.d/$x stop
+    done
+    return 1
+fi
+for i in /etc/rc.d/??* ; do
+  [ ! -f "$i" ] && continue
+    case "$i" in
+      *.sh)
+        (
+          trap - INT QUIT TSTP
+          set start
+          . $i
+        )
+        ;;
+        *)
+          $i start
+         ;;
+    esac
+done
+sleep 1
+#clear
+return 1
+}
+

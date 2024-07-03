@@ -1,0 +1,35 @@
+#!/bin/sh
+Green='\033[0;32m'
+Color_Off='\033[0m'
+Red='\033[0;31m'
+
+case "$1" in
+	start)
+		printf "Starting networking "
+		/usr/bin/ifup -a &>/dev/null &
+		echo $! > /var/run/networking.pid
+		if [[ "$?" == "0" ]]; then
+			printf "[$Green OK $Color_Off]\n"
+		else
+			printf "[$Red ERR $Cpolor_Off]\n"
+		fi
+		;;
+	stop)
+		printf "Stopping networking "
+		/usr/bin/ifdown -a
+		rm /var/run/networking.pid
+		if [[ "$?" == "0" ]]; then
+			printf "[$Green OK $Color_Off]\n"
+		else
+			printf "[$Red ERR $Color_Off]\n"
+		fi
+		;;
+	restart|reload)
+		"$0" stop
+		"$0" start
+		;;
+	*)
+		echo "networking init script usage: $0 {start|stop|restart}"
+		return 1
+esac
+return $?

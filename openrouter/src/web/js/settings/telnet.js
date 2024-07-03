@@ -1,7 +1,7 @@
 const telnetenabled = document.querySelector('#telnetenable')
 const telnetsettingbody = document.querySelector('.telnetsettingbody')
 const settelnetsettingsbutton = document.querySelector('#set_telnet_settings')
-const addtelnetuserbutton = document.querySelector('#add_telnet_user_button')
+// const addtelnetuserbutton = document.querySelector('#add_telnet_user_button')
 
 const telnetportinput = document.querySelector('#telnetportinput')
 
@@ -12,12 +12,12 @@ const get_telnet_enabled_status = () => {
     }).then(res => res.json()).then(jsondata => {
         if (jsondata.enabled === '1') {
             telnetenabled.checked = true
-            addtelnetuserbutton.classList.add('active')
-            addtelnetuserbutton.parentElement.classList.remove('onebutton')
+            // addtelnetuserbutton.classList.add('active')
+            // addtelnetuserbutton.parentElement.classList.remove('onebutton')
             telnetsettingbody.classList.add('active')
             return;
         } else {
-            addtelnetuserbutton.parentElement.classList.add('onebutton')
+            // addtelnetuserbutton.parentElement.classList.add('onebutton')
         }
     }).catch((error) => {
         notification(`Ошибка на сервере: ${error}`, "error")
@@ -41,13 +41,13 @@ const set_telnet_enabled_status = () => {
 
 telnetenabled.addEventListener('click', () => {
     if (telnetenabled.checked) {
-        addtelnetuserbutton.classList.add('active')
-        addtelnetuserbutton.parentElement.classList.remove('onebutton')
+        // addtelnetuserbutton.classList.add('active')
+        // addtelnetuserbutton.parentElement.classList.remove('onebutton')
         telnetsettingbody.classList.add('active')
     } else {
         telnetsettingbody.classList.remove('active')
-        addtelnetuserbutton.classList.remove('active')
-        addtelnetuserbutton.parentElement.classList.add('onebutton')
+        // addtelnetuserbutton.classList.remove('active')
+        // addtelnetuserbutton.parentElement.classList.add('onebutton')
     }
 })
 

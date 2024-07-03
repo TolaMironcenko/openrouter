@@ -1,0 +1,33 @@
+#!/bin/sh
+Green='\033[0;32m'
+Color_off='\033[0m'
+Red='\033[0;31m'
+
+case "$1" in
+        start)
+                printf "Starting sshd "
+                /usr/bin/sshd -D &
+		if [[ "$?" == "0" ]]; then
+                        printf "[$Green OK $Color_off]\n"
+                else
+                        printf "[$Red ERR $Color_off]\n"
+                fi
+                ;;
+        stop)
+                printf "Stopping sshd "
+                killall sshd
+                if [[ "$?" == "0" ]]; then
+                        printf "[$Green OK $Color_off]\n"
+                else
+                        printf "[$Red ERR $Color_off]\n"
+                fi
+                ;;
+        restart|reload)
+                "$0" stop
+                "$0" start
+                ;;
+        *)
+                echo "sshd init script usage: $0 {start|stop|restart}"
+                return 1
+esac
+return $?
