@@ -13,6 +13,18 @@ header {
     gap: 10px;
 }
 
+#headermenubutton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    transition: 0.3s;
+}
+
 .userbuttons {
     display: flex;
     align-items: center;
@@ -25,5 +37,34 @@ header {
     }
     .userbuttons>h1 {
         font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .links {
+        position: absolute;
+        top: 10px;
+        left: 10;
+        height: 0;
+        overflow: hidden;
+        flex-direction: column;
+        transition: 0.3s;
+    }
+
+    .links.active {
+        height: max-content;
+        background-color: gray;
+        z-index: 10;
+        border-radius: 10px;
+    }
+
+    #headermenubutton {
+        position: relative;
+        width: fit-content;
+        height: fit-content;
+        overflow: hidden;
+        padding: 10px;
+        /* margin: 0; */
+
     }
 }

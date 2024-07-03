@@ -12,6 +12,7 @@ if (localStorage.getItem("token") === null) {
 } else {
     get_all_settings()
     adminpanelsection.classList.add('active')
+    settingssection.classList.add('active')
     headerusername.innerHTML = JSON.parse(localStorage.getItem('userdata')).username
 }
 
