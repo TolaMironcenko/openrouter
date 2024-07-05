@@ -2,12 +2,14 @@ header {
     width: 100vw;
     height: 50px;
     padding: 10px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
     align-items: center;
     justify-content: space-between;
 }
 
 .links {
+    justify-self: start;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -26,9 +28,14 @@ header {
 }
 
 .userbuttons {
+    justify-self: end;
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+header>h1 {
+    justify-self: center;
 }
 
 @media screen and (max-width: 400px) {

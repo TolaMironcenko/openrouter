@@ -32,9 +32,9 @@
         <!-- header -->
         <!-- settings block -->
         <div class="section">
-            <section class="settingssection">
+            <section class="settingssection grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 24% }'>
                 <!-- telnet settings -->
-                <div class="settingrect">
+                <div class="settingrect grid-item">
                     <div class="settingrectheader">
                         <h2>Telnet</h2>
                         <div class="checkbox-wrapper-2">
@@ -54,7 +54,7 @@
                 </div>
                 <!-- telnet settings -->
                 <!-- DNS settings -->
-                <div class="settingrect">
+                <div class="settingrect grid-item">
                     <div class="settingrectheader">
                         <h2>DNS</h2>
                         <div class="checkbox-wrapper-2">
@@ -90,7 +90,7 @@
                 </div>
                 <!-- DNS settings -->
                 <!-- ftp settings -->
-                <div class="settingrect">
+                <div class="settingrect grid-item">
                     <div class="settingrectheader">
                         <h2>Ftp</h2>
                         <div class="checkbox-wrapper-2">
@@ -104,7 +104,7 @@
                 </div>
                 <!-- ftp settings -->
                 <!-- ssh settings -->
-                <div class="settingrect">
+                <div class="settingrect grid-item">
                     <div class="settingrectheader">
                         <h2>SSH</h2>
                         <div class="checkbox-wrapper-2">
@@ -130,6 +130,20 @@
                     </div>
                 </div>
                 <!-- ssh settings -->
+                <!-- wifi settings -->
+                <div class="settingrect grid-item">
+                    <div class="settingrectheader">
+                        <h2>WIFI</h2>
+                        <div class="checkbox-wrapper-2">
+                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="sshenable">
+                        </div>
+                    </div>
+                    <div class="settingrectfooter onebutton">
+                        <button id="add_ssh_key" class="hiddenbutton settingrectfooterbutton">Add SSH key</button>
+                        <button class="settingrectfooterbutton" id="set_ssh_settings">Confirm</button>
+                    </div>
+                </div>
+                <!-- wifi settings -->
             </section>
             <!-- syslog block -->
             <section class="syslogsection">

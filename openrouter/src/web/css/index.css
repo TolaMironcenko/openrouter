@@ -29,4 +29,6 @@ body {
 
 .section {
     position: relative;
+    overflow: hidden;
+    height: calc(100vh - 50px);
 }

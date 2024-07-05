@@ -1,10 +1,9 @@
-const authhost = window.location.origin
 const host = window.location.origin
 const prefix = 'api'
 
 const routes = {
-    login: () => [authhost, prefix, 'token'].join('/'),
-    user: () => [authhost, prefix, 'users', 'user'].join('/'),
+    login: () => [host, prefix, 'token'].join('/'),
+    user: () => [host, prefix, 'users', 'user'].join('/'),
 
     telnet_status: () => [host, prefix, 'settings', 'telnet', 'get'].join('/'),
     telnet_status_set: () => [host, prefix, 'settings', 'telnet', 'set'].join('/'),
