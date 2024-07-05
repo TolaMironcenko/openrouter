@@ -78,11 +78,11 @@ void set_ftp(const httplib::Request &request, httplib::Response &response) {
         std::string new_ftp_enabled = json_body["enabled"];
         if (new_ftp_enabled == "0") {
             system("/etc/init.d/ftp stop");
-            system("rm /etc/rc.d/90ftp");
+            system("rm-rc 90ftp");
             syslog(LOG_INFO, "Ftp is disabled");
         } else {
             system("/etc/init.d/ftp start");
-            system("ln -sv /etc/init.d/ftp /etc/rc.d/90ftp");
+            system("add-rc ftp 90");
             syslog(LOG_INFO, "Ftp is enabled");
         }
         ftpfileout << stoi(new_ftp_enabled);

@@ -77,11 +77,11 @@ void set_ssh_status(const httplib::Request &request, httplib::Response &response
         std::string new_ssh_status = json_body["status"];
         if (new_ssh_status == "0") {
             system("/etc/init.d/ssh stop");
-            system("rm /etc/rc.d/75ssh");
+            system("rm-rc.d 75ssh");
             syslog(LOG_INFO, "SSH is disabled");
         } else {
             system("/etc/init.d/ssh start");
-            system("ln -sv /etc/init.d/ssh /etc/rc.d/75ssh");
+            system("add-rc.d ssh 75");
             syslog(LOG_INFO, "SSH is enabled");
         }
         sshfileout << stoi(new_ssh_status);
