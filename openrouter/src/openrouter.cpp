@@ -51,6 +51,6 @@ int main() {
             << "0.0.0.0" << RESET << ":" << CYAN << "43244" << RESET << " ]" << std::endl;
 
     syslog(LOG_INFO, "openrouter administration software started.");
-    srv.listen("0.0.0.0", 80);
+    srv.listen("127.0.0.1", 43244);
     return 0;
 }

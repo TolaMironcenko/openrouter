@@ -7,7 +7,6 @@ let openrouterfilterenable = false
 let authservicefilerenable = false
 
 const get_syslog_data = () => {
-    console.log("get_syslog_data")
     fetch(routes.syslog(), {
         method: 'GET',
         // body: `{"token":"${localStorage.getItem("token")}"}`
@@ -49,7 +48,6 @@ const openrouterfilterfunc = (textdata) => {
     syslogalldata = syslogalldata.filter(data => {
         return data.includes("openrouter:")
     })
-    console.log(syslogalldata)
     syslogdata.innerHTML = ""
     for (const data in syslogalldata) {
         syslogdata.innerHTML += syslogalldata[data] + "<br>"
@@ -63,7 +61,6 @@ const authservicefilterfunc = (textdata) => {
     syslogalldata = syslogalldata.filter(data => {
         return data.includes("auth_service:")
     })
-    console.log(syslogalldata)
     syslogdata.innerHTML = ""
     for (const data in syslogalldata) {
         syslogdata.innerHTML += syslogalldata[data] + "<br>"

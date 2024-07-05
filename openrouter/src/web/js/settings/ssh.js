@@ -65,7 +65,6 @@ const get_ssh_keys = () => {
         method: 'POST',
         body: `{"token":"${localStorage.getItem("token")}"}`
     }).then(data => data.json()).then(jsondata => {
-        console.log(jsondata.keys)
         sshkeys = jsondata.keys
         sshkeystablebody.innerHTML = ""
         for (const key in sshkeys) {

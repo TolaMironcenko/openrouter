@@ -1,4 +1,4 @@
-const authhost = 'http://172.20.10.2:43243'
+const authhost = window.location.origin
 const host = window.location.origin
 const prefix = 'api'
 
