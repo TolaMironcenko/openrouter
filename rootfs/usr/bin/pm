@@ -43,7 +43,7 @@ checkroot
 
 #----------------- add(install) package function ------------------------
 add() {
-    if [[ ! $1 ]]; then
+    if [[ "$1" == "" ]]; then
         help
         exit 0
     fi
@@ -168,7 +168,7 @@ query() {
         printf "$Yellow**$Bwhite No installed packages\n"
         exit 0
     fi
-    printf "$Bwhite$packagesquery$Color_off\n"
+    printf "$packagesquery\n"
 }
 #------------------------------------------------------------------------
 
