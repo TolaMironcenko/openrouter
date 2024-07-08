@@ -87,7 +87,7 @@ void set_ssh_keys(const httplib::Request &request, httplib::Response &response) 
             keysfile << key << "\n";
         }
         keysfile.close();
-        system("/etc/init.d/ssh restart");
+        system("rc restart ssh");
         syslog(LOG_INFO, "SSH keys changed");
         std::string responsedata = R"({"success":"true"})";
         response.set_content(responsedata, JSON_TYPE);

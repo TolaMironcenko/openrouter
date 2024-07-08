@@ -1,3 +1,4 @@
 root:x:0:root
 dnsmasq:x:963:
 sshd:x:33:
+nobody:x:65534:65534:Kernel Overflow User:/:/usr/bin/nologin

@@ -76,12 +76,12 @@ void set_ssh_status(const httplib::Request &request, httplib::Response &response
         std::ofstream sshfileout("/etc/openrouter/ssh/status");
         std::string new_ssh_status = json_body["status"];
         if (new_ssh_status == "0") {
-            system("/etc/init.d/ssh stop");
-            system("rm-rc.d 75ssh");
+            system("rc stop ssh");
+            system("rc del ssh");
             syslog(LOG_INFO, "SSH is disabled");
         } else {
-            system("/etc/init.d/ssh start");
-            system("add-rc.d ssh 75");
+            system("rc start ssh");
+            system("rc add ssh");
             syslog(LOG_INFO, "SSH is enabled");
         }
         sshfileout << stoi(new_ssh_status);

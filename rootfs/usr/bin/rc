@@ -1,0 +1,124 @@
+#!/bin/sh
+
+########## ##########
+########## ##########
+##      ## ##
+##         ##
+##         ##         - RC BOOT SCRIPTS MANAGER FOR SIMPLE LINUX 
+##         ##         - AUTHOR -- TOLA MIRONCENKO
+##         ##
+##         ##
+##         ##########
+##         ##########
+
+#------------------------ add to boot function --------------
+add() {
+    resultlink=$(cat /usr/share/rc/ordernumbers | grep $1)
+    if [ -f /etc/init.d/$1 ] && [ $resultlink ]; then
+        cd /etc/rc.d 
+        ln -sv ../init.d/$1 "$resultlink" &> /dev/null
+        echo "added $1 to init."
+    else
+        help
+    fi
+}
+#------------------------------------------------------------
+
+#--------------------- del from boot function ---------------
+del() {
+    filetoremove=$(find /etc/rc.d/ | grep $1 )
+    if [ $filetoremove ]; then
+        rm -v $filetoremove &> /dev/null
+        echo "removed $1 from init."
+    else
+        help
+    fi
+}
+#------------------------------------------------------------
+
+#---------------------- start daemon function ---------------
+start() {
+    if [ -f /etc/init.d/$1 ]; then
+        /etc/init.d/$1 start
+    else
+        help
+    fi
+}
+#------------------------------------------------------------
+
+#---------------- stop daemon function ----------------------
+stop() {
+    if [ -f /etc/init.d/$1 ]; then
+        /etc/init.d/$1 stop
+    else
+        help
+    fi
+}
+#------------------------------------------------------------
+
+#------------- restart daemon function ----------------------
+restart() {
+    if [ -f /etc/init.d/$1 ]; then
+        /etc/init.d/$1 restart
+    else
+        help
+    fi
+}
+#------------------------------------------------------------
+
+#-------------- print help function -------------------------
+help() {
+    echo "
+            ** rc usage:
+            rc add [init.d script name]
+            rc del [init.d script name]
+            rc start [init.d script name]
+            rc stop [init.d script name]
+            rc restart [init.d script name]
+
+            examples:
+            rc add httpd
+            rc add ftpd
+            rc add telnetd
+
+            rc del httpd 
+            rc del ftpd 
+            rc del telnetd 
+
+            rc start httpd
+            rc start ftpd
+            rc start telnetd
+
+            rc stop httpd
+            rc stop ftpd
+            rc stop telnetd
+
+            rc restart httpd
+            rc restart ftpd
+            rc restart telnetd
+        "
+}
+#------------------------------------------------------------
+
+command="$1"
+
+case ${command} in
+    add)
+        add $2 $3
+        ;;
+    del)
+        del $2
+        ;;
+    start)
+        start $2
+        ;;
+    stop)
+        stop $2
+        ;;
+    restart)
+        restart $2
+        ;;
+    *)
+        help
+        ;;
+esac

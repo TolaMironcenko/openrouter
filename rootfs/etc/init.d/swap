@@ -3,24 +3,18 @@ Green='\033[0;32m'
 Color_off='\033[0m'
 Red='\033[0;31m'
 
+. /etc/init.d/init-functions
+
 case "$1" in
 	start)
-		printf "Configuring swap "
+		notify "Configuring swap "
 		swapon -a
-		if [[ "$?" == "0" ]]; then
-			printf "[$Green OK $Color_off]\n"
-		else
-			printf "[$Red ERR $Color_off]\n"
-		fi
+		check $?
 		;;
 	stop)
-		printf "Stopping use swap "
+		notify "Stopping use swap "
 		swapoff -a
-        if [[ "$?" == "0" ]]; then
-			printf "[$Green OK $Color_off]\n"
-		else
-			printf "[$Red ERR $Color_off]\n"
-		fi
+        check $?
 		;;
 	restart|reload)
 		"$0" stop

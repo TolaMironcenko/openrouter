@@ -90,7 +90,7 @@ void set_dns_servers(const httplib::Request &request, httplib::Response &respons
             dnsserversfile << "nameserver " << srv << "\n";
         }
         dnsserversfile.close();
-        system("/etc/init.d/dnsmasq restart");
+        system("rc restart dnsmasq");
         syslog(LOG_INFO, "DNS servers changed");
         std::string responsedata = R"({"success":"true"})";
         response.set_content(responsedata, JSON_TYPE);

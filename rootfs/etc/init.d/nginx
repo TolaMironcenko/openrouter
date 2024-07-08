@@ -3,24 +3,18 @@ Green='\033[0;32m'
 Color_off='\033[0m'
 Red='\033[0;31m'
 
+. /etc/init.d/init-functions
+
 case "$1" in
 	start)
-		printf "Starting nginx "
+		notify "Starting nginx "
 		nginx
-		if [[ "$?" == "0" ]]; then
-			printf "[$Green OK $Color_off]\n"
-		else
-			printf "[$Red ERR $Color_off]\n"
-		fi
+		check $?
 		;;
 	stop)
-		printf "Stopping nginx "
+		notify "Stopping nginx "
 		nginx -s stop
-		if [[ "$?" == "0" ]]; then
-			printf "[$Green OK $Color_off]\n"
-		else
-			printf "[$Red ERR $Color_off]\n"
-		fi
+		check $?
 		;;
 	restart|reload)
 		"$0" stop

@@ -81,12 +81,12 @@ void set_telnet(const httplib::Request &request, httplib::Response &response) {
         std::ofstream telnetfileout("/etc/openrouter/telnet/enabled");
         std::string new_telnet_enabled = json_body["enabled"];
         if (new_telnet_enabled == "0") {
-            system("/etc/init.d/telnet stop");
-            system("rm-rc.d 70telnet");
+            system("rc stop telnet");
+            system("rc del telnet");
             syslog(LOG_INFO, "Telnet is disabled");
         } else {
-            system("/etc/init.d/telnet start");
-            system("add-rc.d telnet 70");
+            system("rc start telnet");
+            system("rc add telnet");
             syslog(LOG_INFO, "Telnet is enabled");
         }
         telnetfileout << stoi(new_telnet_enabled);

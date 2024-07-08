@@ -3,31 +3,24 @@ Green='\033[0;32m'
 Color_off='\033[0m'
 Red='\033[0;31m'
 
+. /etc/init.d/init-functions
+
 case "$1" in
 	start)
-		printf "Starting dnsmasq "
+		notify "Starting dnsmasq "
 		sleep 1
 		/usr/bin/dnsmasq --user=dnsmasq --pid-file=/var/run/dnsmasq.pid
 		echo "nameserver 0.0.0.0" > /etc/resolv.conf
-		if [[ "$?" == "0" ]]; then
-			echo "nameserver 0.0.0.0" > /etc/resolv.conf
-			printf "[$Green OK $Color_off]\n"
-		else
-			printf "[$Red ERR $Color_off]\n"
-		fi
+		check $?
 		;;
 	stop)
-		printf "\nStopping dnsmasq "
+		notify "\nStopping dnsmasq "
 		if [ -f /var/run/dnsmasq.pid ]; then
 			kill $(cat /var/run/dnsmasq.pid) &> /dev/null
-			if [[ "$?" == "0" ]]; then
-				printf "[$Green OK $Color_off]\n"
-			else
-				printf "[$Red ERR $Color_off]\n"
-			fi
+			check $?
 			rm /var/run/dnsmasq &> /dev/null
 		else
-			printf "[$Red Dnsmasq is not running $Color_off]\n"
+			notify "[$Red Dnsmasq is not running $Color_off]\n"
 		fi
 		;;
 	restart|reload)

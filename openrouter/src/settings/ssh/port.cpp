@@ -90,7 +90,7 @@ void set_ssh_port(const httplib::Request &request, httplib::Response &response) 
         systemrequest << "sed -i \"/Port " << old_ssh_port << "/s//Port " << new_ssh_port << "/\" /etc/ssh/sshd_config";
         std::cout << systemrequest.str() << std::endl;
         system(systemrequest.str().c_str());
-        system("/etc/init.d/ssh restart");
+        system("rc restart ssh");
         std::string syslogstring = "SSH port changed to " + new_ssh_port;
         syslog(LOG_INFO, syslogstring.c_str());
         std::ifstream sshportfile(SSH_PORT_PATH);

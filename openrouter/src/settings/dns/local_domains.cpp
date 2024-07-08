@@ -92,7 +92,7 @@ void set_local_domains(const httplib::Request &request, httplib::Response &respo
             domainsfile << ip << " " << dom << "\n";
         }
         domainsfile.close();
-        system("/etc/init.d/dnsmasq restart");
+        system("rc restart dnsmasq");
         syslog(LOG_INFO, "DNS local domains changed");
         std::string responsedata = R"({"success":"true"})";
         response.set_content(responsedata, JSON_TYPE);

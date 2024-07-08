@@ -77,12 +77,12 @@ void set_dns(const httplib::Request &request, httplib::Response &response) {
         std::ofstream dnsfileout("/etc/openrouter/dns");
         std::string new_dns_enabled = json_body["enabled"];
         if (new_dns_enabled == "0") {
-            system("/etc/init.d/dnsmasq stop");
-            system("rm-rc.d 60dnsmasq");
+            system("rc stop dnsmasq");
+            system("rc del dnsmasq");
             syslog(LOG_INFO, "DNS is disabled");
         } else {
-            system("/etc/init.d/dnsmasq restart");
-            system("add-rc.d dnsmasq 60");
+            system("rc restart dnsmasq");
+            system("rc add dnsmasq");
             syslog(LOG_INFO, "DNS is enabled");
         }
         dnsfileout << stoi(new_dns_enabled);

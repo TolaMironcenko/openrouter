@@ -3,26 +3,20 @@ Green='\033[0;32m'
 Color_Off='\033[0m'
 Red='\033[0;31m'
 
+. /etc/init.d/init-functions
+
 case "$1" in
 	start)
-		printf "Starting networking "
+		notify "Starting networking "
 		/usr/bin/ifup -a &>/dev/null &
 		echo $! > /var/run/networking.pid
-		if [[ "$?" == "0" ]]; then
-			printf "[$Green OK $Color_Off]\n"
-		else
-			printf "[$Red ERR $Cpolor_Off]\n"
-		fi
+		check $?
 		;;
 	stop)
-		printf "Stopping networking "
+		notify "Stopping networking "
 		/usr/bin/ifdown -a
 		rm /var/run/networking.pid
-		if [[ "$?" == "0" ]]; then
-			printf "[$Green OK $Color_Off]\n"
-		else
-			printf "[$Red ERR $Color_Off]\n"
-		fi
+		check $?
 		;;
 	restart|reload)
 		"$0" stop

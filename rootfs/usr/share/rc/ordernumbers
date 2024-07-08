@@ -1,0 +1,14 @@
+15hostname
+20klogd
+30syslogd
+40swap
+50networking
+55sysctl
+60dnsmasq
+65dnsd
+70telnet
+75ssh
+80iptables
+85openrouterinit
+90ftp
+95nginx

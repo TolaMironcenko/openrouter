@@ -82,7 +82,7 @@ void set_telnet_port(const httplib::Request &request, httplib::Response &respons
         std::string new_telnet_port = json_body["port"];
         telnetportfileout << stoi(new_telnet_port);
         telnetportfileout.close();
-        system("/etc/init.d/telnet restart");
+        system("rc restart telnet");
         std::string syslogstring = "Telnet port changed to " + new_telnet_port;
         syslog(LOG_INFO, syslogstring.c_str());
         std::ifstream telnetportfile("/etc/openrouter/telnet/port");

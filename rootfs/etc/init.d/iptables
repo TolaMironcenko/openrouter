@@ -8,27 +8,21 @@ DAEMON="iptables"
 
 IPTABLES_ARGS=""
 
+. /etc/init.d/init-functions
+
 start() {
-	printf 'Starting %s: ' "$DAEMON"
+	notify "Starting $DAEMON"
 	iptables-restore /etc/iptables.conf
 	status=$?
-	if [ "$status" -eq 0 ]; then
-	    printf "[$Green OK $Color_off]\n"
-	else
-	    printf "[$Red ERR $Color_off]\n"
-	fi
+	check $?
 	return "$status"
 }
 
 stop() {
-	printf 'Stopping %s: ' "$DAEMON"
+	notify "Stopping $DAEMON"
 	iptables -F
 	status=$?
-	if [ "$status" -eq 0 ]; then
-		printf "[$Green OK $Color_off]\n"
-	else
-		printf "[$Red ERR $Color_off]\n"
-	fi
+	check $?
 	return "$status"
 }
 
@@ -39,11 +33,11 @@ restart() {
 }
 
 save() {
-	printf 'Saving %s: ' "$DAEMON"
+	notify 'Saving %s: ' "$DAEMON"
 	iptables-save -f /etc/iptables.conf
 	status=$?
 	if [ "$status" -eq 0 ]; then
-		printf "[$Green OK $Color_off]\n"
+		notify "[$Green OK $Color_off]\n"
 	else
 		echo "SKIP (read-only file system detected)"
 	fi

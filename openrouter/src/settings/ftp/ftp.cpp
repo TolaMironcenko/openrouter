@@ -77,12 +77,12 @@ void set_ftp(const httplib::Request &request, httplib::Response &response) {
         std::ofstream ftpfileout("/etc/openrouter/ftp");
         std::string new_ftp_enabled = json_body["enabled"];
         if (new_ftp_enabled == "0") {
-            system("/etc/init.d/ftp stop");
-            system("rm-rc 90ftp");
+            system("rc stop ftp");
+            system("rc del ftp");
             syslog(LOG_INFO, "Ftp is disabled");
         } else {
-            system("/etc/init.d/ftp start");
-            system("add-rc ftp 90");
+            system("rc start ftp");
+            system("rc add ftp");
             syslog(LOG_INFO, "Ftp is enabled");
         }
         ftpfileout << stoi(new_ftp_enabled);
