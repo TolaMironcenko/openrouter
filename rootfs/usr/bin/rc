@@ -11,6 +11,8 @@
 ##         ##########
 ##         ##########
 
+rootdir=/Users/anatolijmironcenko/Documents/cpp/openrouter/rootfs
+
 #------------------------ add to boot function --------------
 add() {
     resultlink=$(cat /usr/share/rc/ordernumbers | grep $1)
@@ -66,36 +68,38 @@ restart() {
 }
 #------------------------------------------------------------
 
+#------------------ list services ---------------------------
+list() {
+    ls --color $rootdir/etc/init.d
+}
+#------------------------------------------------------------
+
+#------------------ list enabled services -------------------
+bootlist() {
+    ls --color $rootdir/etc/rc.d
+}
+#------------------------------------------------------------
+
 #-------------- print help function -------------------------
 help() {
     echo "
             ** rc usage:
-            rc add [init.d script name]
-            rc del [init.d script name]
-            rc start [init.d script name]
-            rc stop [init.d script name]
-            rc restart [init.d script name]
+            rc add [init.d script name] - add service on boot
+            rc del [init.d script name] - delete service from boot
+            rc start [init.d script name] - start service
+            rc stop [init.d script name] - stop service
+            rc restart [init.d script name] - restart service
+            rc list - list all services
+            rc bootlist - list enabled services
 
             examples:
             rc add httpd
-            rc add ftpd
-            rc add telnetd
-
-            rc del httpd 
-            rc del ftpd 
-            rc del telnetd 
-
+            rc del httpd  
             rc start httpd
-            rc start ftpd
-            rc start telnetd
-
             rc stop httpd
-            rc stop ftpd
-            rc stop telnetd
-
             rc restart httpd
-            rc restart ftpd
-            rc restart telnetd
+            rc list
+            rc bootlist
         "
 }
 #------------------------------------------------------------
@@ -117,6 +121,12 @@ case ${command} in
         ;;
     restart)
         restart $2
+        ;;
+    list)
+        list
+        ;;
+    bootlist)
+        bootlist
         ;;
     *)
         help
