@@ -116,6 +116,9 @@ unpack() {
     mkdir $installedpackagesdir/$packagename &> /dev/null
     mv -v list $installedpackagesdir/$packagename &> /dev/null
     cp -rv ./* $rootdir &> /dev/null
+    if [ -f $rootdir/tmp/$packagename/post_install ]; then
+        sh -c $rootdir/tmp/$packagename/post_install
+    fi
     if [[ "$(cat $packagesqueryfile | grep ${packagename%.pkg*})" == "" ]]; then
         echo ${packagename%.pkg*} >> $packagesqueryfile
     fi
