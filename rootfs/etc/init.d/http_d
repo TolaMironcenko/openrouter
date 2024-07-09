@@ -6,13 +6,13 @@ case "$1" in
 	start)
 		notify "Starting httpd "
 		httpd -h /srv/www &> /dev/null
+		echo $! > /var/run/httpd.pid
 		check $?
 		;;
 	stop)
 		notify "Stopping httpd "
 		killall httpd
-		#kill $(cat /var/run/httpd.pid)
-		#rm /var/run/httpd.pid
+		rm /var/run/httpd.pid
 		check $?
 		;;
 	restart|reload)

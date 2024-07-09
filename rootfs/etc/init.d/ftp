@@ -12,7 +12,7 @@ case "$1" in
 	stop)
 		notify "Stopping ftpd "
 		kill $(cat /var/run/ftpd.pid)
-		killall ftpd
+		killall ftpd &> /dev/null 
 		rm /var/run/ftpd.pid
 		check $?
 		;;

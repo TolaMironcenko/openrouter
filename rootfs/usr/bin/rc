@@ -11,7 +11,17 @@
 ##         ##########
 ##         ##########
 
-rootdir=/Users/anatolijmironcenko/Documents/cpp/openrouter/rootfs
+#----- colors -------
+Green='\033[0;32m'
+Color_off='\033[0m'
+Red='\033[0;31m'
+Bred='\033[1;31m' 
+Yellow='\033[1;33m'
+White='\033[0;37m'
+Bwhite='\033[1;37m' 
+#--------------------
+
+rootdir=/
 
 #------------------------ add to boot function --------------
 add() {
@@ -80,6 +90,32 @@ bootlist() {
 }
 #------------------------------------------------------------
 
+#------------------ service status --------------------------
+status() {
+    if [[ "$1" == "" ]]; then
+        help
+        exit 0
+    fi
+    if [[ "$(ls /etc/init.d | grep $1)" == ""  ]]; then
+        printf "$Yellow**$Bred error:$Color_off can't find service /etc/init.d/$1\n"
+        exit 1
+    fi
+    printf "$Yellow**$Green $1$Color_off\n"
+    rcdservice=$(ls $rootdir/etc/rc.d | grep $1 2> /dev/null)
+    if [[ "$rcdservice" == "" ]]; then
+        printf "Loaded:$Yellow unloaded$Color_off (/etc/rc.d)\n"
+    else
+        printf "Loaded:$Green loaded$Color_off (/etc/rc.d/$rcdservice)\n"
+    fi
+    servicepid=$(ls $rootdir/var/run | grep $1)
+    if [[ "$servicepid" == "" ]]; then
+        printf "Active: deactive (${Yellow}deactive$Color_off)\n"
+    else
+        printf "Active: active (${Green}running$Color_off); pid (/var/run/$servicepid)\n"
+    fi
+}
+#------------------------------------------------------------
+
 #-------------- print help function -------------------------
 help() {
     echo "
@@ -91,6 +127,7 @@ help() {
             rc restart [init.d script name] - restart service
             rc list - list all services
             rc bootlist - list enabled services
+            rc status [init.d script name] - check service status
 
             examples:
             rc add httpd
@@ -127,6 +164,9 @@ case ${command} in
         ;;
     bootlist)
         bootlist
+        ;;
+    status)
+        status $2
         ;;
     *)
         help

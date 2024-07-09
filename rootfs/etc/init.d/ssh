@@ -6,11 +6,13 @@ case "$1" in
         start)
                 notify "Starting sshd "
                 /usr/bin/sshd -D &
+                echo $! > /var/run/ssh.pid
 		check $?
                 ;;
         stop)
                 notify "Stopping sshd "
                 killall sshd
+                rm /var/run/ssh.pid
                 check $?
                 ;;
         restart|reload)

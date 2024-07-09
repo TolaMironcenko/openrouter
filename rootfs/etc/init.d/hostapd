@@ -7,9 +7,11 @@ case "$1" in
                 notify "Starting hostapd "
                 if [[ "$2" == "" ]]; then
                     /usr/bin/hostapd -P /var/run/hostapd.pid /etc/hostapd/hostapd
+                #     echo $! > /var/run/hostapd.pid
                     check $?
                 else
                     /usr/bin/hostapd -P /var/run/hostapd.pid $2
+                #     echo $! > /var/run/hostapd.pid
                     check $?
                 fi
                 ;;

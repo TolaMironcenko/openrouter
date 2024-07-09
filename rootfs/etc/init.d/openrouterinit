@@ -7,12 +7,14 @@ case "$1" in
                 notify "Starting openrouter software "
                 cd /srv/ftpd/auth_service_router/bin && ./auth_service &> /dev/null &
                 cd /srv/ftpd/openrouter_adminpanel/bin && ./openrouter &> /dev/null &
+                echo $! > /var/run/openrouterinit.pid
                 check $?
                 ;;
         stop)
                 notify "Stopping openrouter software "
                 killall openrouter
                 killall auth_service
+                rm /var/run/openrouterinit.pid
                 check $?
                 ;;
         restart|reload)
