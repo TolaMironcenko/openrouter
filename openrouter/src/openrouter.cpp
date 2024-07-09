@@ -5,6 +5,7 @@
 #include "settings/ssh/ssh.hpp"
 #include "settings/dns/dns.hpp"
 #include "settings/ftp/ftp.hpp"
+#include "settings/wifi/wifi.hpp"
 #include "reboot/reboot.hpp"
 #include "syslog/syslog.hpp"
 #include <syslog.h>
@@ -36,6 +37,10 @@ int main() {
 
     srv.Post("/api/settings/ftp/get", get_ftp);
     srv.Post("/api/settings/ftp/set", set_ftp);
+
+    srv.Post("/api/settings/wifi/status/get", get_wifi_status);
+    srv.Post("/api/settings/wifi/name/get", get_wifi_name);
+    srv.Post("/api/settings/wifi/password/get", get_wifi_password);
 
     srv.Post("/api/reboot", reboot);
 

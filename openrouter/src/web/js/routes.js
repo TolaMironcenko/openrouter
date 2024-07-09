@@ -27,6 +27,13 @@ const routes = {
     ftp_status: () => [host, prefix, 'settings', 'ftp', 'get'].join('/'),
     ftp_status_set: () => [host, prefix, 'settings', 'ftp', 'set'].join('/'),
 
+    wifi_status_get: () => [host, prefix, 'settings', 'wifi', 'status', 'get'].join('/'),
+    wifi_status_set: () => [host, prefix, 'settings', 'wifi', 'status', 'set'].join('/'),
+    wifi_name_get: () => [host, prefix, 'settings', 'wifi', 'name', 'get'].join('/'),
+    wifi_name_set: () => [host, prefix, 'settings', 'wifi', 'name', 'set'].join('/'),
+    wifi_password_get: () => [host, prefix, 'settings', 'wifi', 'password', 'get'].join('/'),
+    wifi_password_set: () => [host, prefix, 'settings', 'wifi', 'password', 'set'].join('/'),
+
     reboot: () => [host, prefix, 'reboot'].join('/'),
     syslog: () => [host, prefix, 'syslog'].join('/'),
     // all_users: () => [host, prefix, 'users', 'all'].join('/'),

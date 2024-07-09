@@ -7,16 +7,18 @@ init () {
 test -f $DAEMON || exit 0
 case "$1" in
   start)
-    echo "Starting $DESC..."
+    notify $NOTIFY_START
       if [ $LOG ] ; then
-        $DAEMON $PARAMS 2>>/var/log/$LOG &
+        $start_command $start_params 2>>/var/log/$LOG &
+        check $?
       else
-        $DAEMON $PARAMS &>/dev/null &
+        $start_command $start_params &>/dev/null &
+        check $?
       fi
     echo $! > $PIDFILE
     ;;
   stop)
-    printf "\nStopping $DESC..."
+    notify $NOTIFY_STOP
     if [ $STOP ] ; then
       $STOP $PARAMS
     else

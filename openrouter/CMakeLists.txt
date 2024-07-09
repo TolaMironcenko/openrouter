@@ -20,6 +20,10 @@ add_executable(
     src/settings/dns/servers.cpp
     src/settings/dns/local_domains.cpp
 
+    src/settings/wifi/status.cpp
+    src/settings/wifi/name.cpp
+    src/settings/wifi/password.cpp
+
     src/settings/ftp/ftp.cpp
 
     src/reboot/reboot.cpp

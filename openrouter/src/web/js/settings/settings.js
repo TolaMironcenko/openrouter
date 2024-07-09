@@ -11,4 +11,8 @@ const get_all_settings = () => {
     get_ssh_status()
     get_ssh_keys()
     get_ssh_port()
+
+    get_wifi_status()
+    get_wifi_name()
+    get_wifi_password()
 }

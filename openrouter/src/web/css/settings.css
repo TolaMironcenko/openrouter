@@ -112,6 +112,9 @@
   max-height: 0;
   overflow: auto;
   transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .settingrectbody.active {

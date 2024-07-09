@@ -32,9 +32,9 @@
         <!-- header -->
         <!-- settings block -->
         <div class="section">
-            <section class="settingssection grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 24% }'>
+            <section class="settingssection">
                 <!-- telnet settings -->
-                <div class="settingrect grid-item">
+                <div class="settingrect ">
                     <div class="settingrectheader">
                         <h2>Telnet</h2>
                         <div class="checkbox-wrapper-2">
@@ -54,7 +54,7 @@
                 </div>
                 <!-- telnet settings -->
                 <!-- DNS settings -->
-                <div class="settingrect grid-item">
+                <div class="settingrect ">
                     <div class="settingrectheader">
                         <h2>DNS</h2>
                         <div class="checkbox-wrapper-2">
@@ -90,7 +90,7 @@
                 </div>
                 <!-- DNS settings -->
                 <!-- ftp settings -->
-                <div class="settingrect grid-item">
+                <div class="settingrect ">
                     <div class="settingrectheader">
                         <h2>Ftp</h2>
                         <div class="checkbox-wrapper-2">
@@ -104,7 +104,7 @@
                 </div>
                 <!-- ftp settings -->
                 <!-- ssh settings -->
-                <div class="settingrect grid-item">
+                <div class="settingrect ">
                     <div class="settingrectheader">
                         <h2>SSH</h2>
                         <div class="checkbox-wrapper-2">
@@ -131,11 +131,21 @@
                 </div>
                 <!-- ssh settings -->
                 <!-- wifi settings -->
-                <div class="settingrect grid-item">
+                <div class="settingrect ">
                     <div class="settingrectheader">
                         <h2>WIFI</h2>
                         <div class="checkbox-wrapper-2">
-                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="sshenable">
+                            <input type="checkbox" class="sc-gJwTLC ikxBAC" id="wifistatus">
+                        </div>
+                    </div>
+                    <div class="settingrectbody" id="wifisettingsbody">
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <label for="SSID" class="forminputlabel">SSID</label>
+                            <input type="text" id="SSID" class="forminput">
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <label for="wifipassword" class="forminputlabel">Password</label>
+                            <input type="text" id="wifipassword" class="forminput">
                         </div>
                     </div>
                     <div class="settingrectfooter onebutton">
@@ -244,6 +254,7 @@
     <script src="js/settings/dns.js"></script>
     <script src="js/settings/ftp.js"></script>
     <script src="js/settings/ssh.js"></script>
+    <script src="js/settings/wifi.js"></script>
     <script src="js/settings/settings.js"></script>
 
     <script src="js/reboot.js"></script>
