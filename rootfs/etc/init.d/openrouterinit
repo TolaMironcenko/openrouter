@@ -6,8 +6,9 @@ case "$1" in
         start)
                 notify "Starting openrouter software "
                 cd /srv/ftpd/auth_service_router/bin && ./auth_service &> /dev/null &
-                cd /srv/ftpd/openrouter_adminpanel/bin && ./openrouter &> /dev/null &
                 echo $! > /var/run/openrouterinit.pid
+                cd /srv/ftpd/openrouter_adminpanel/bin && ./openrouter &> /dev/null &
+                echo $! >> /var/run/openrouterinit.pid
                 check $?
                 ;;
         stop)
