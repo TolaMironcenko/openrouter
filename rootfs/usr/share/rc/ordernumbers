@@ -11,4 +11,5 @@
 80iptables
 85openrouterinit
 90ftp
+92hostapd
 95nginx

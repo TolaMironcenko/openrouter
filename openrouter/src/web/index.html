@@ -144,13 +144,18 @@
                             <input type="text" id="SSID" class="forminput">
                         </div>
                         <div style="display:flex;align-items:center;justify-content:space-between;">
-                            <label for="wifipassword" class="forminputlabel">Password</label>
-                            <input type="text" id="wifipassword" class="forminput">
+                            <label for="wifipassword" class="forminputlabel">Old password</label>
+                            <button id="showpasswordbutton">Show</button>
+                            <input type="password" id="wifipassword" class="forminput">
+                        </div>
+                        <div style="display:flex;align-items:center;justify-content:space-between;">
+                            <label for="newwifipassword" class="forminputlabel">New password</label>
+                            <button id="shownewpasswordbutton">Show</button>
+                            <input type="password" id="newwifipassword" class="forminput">
                         </div>
                     </div>
                     <div class="settingrectfooter onebutton">
-                        <button id="add_ssh_key" class="hiddenbutton settingrectfooterbutton">Add SSH key</button>
-                        <button class="settingrectfooterbutton" id="set_ssh_settings">Confirm</button>
+                        <button class="settingrectfooterbutton" id="setwifisettings">Confirm</button>
                     </div>
                 </div>
                 <!-- wifi settings -->

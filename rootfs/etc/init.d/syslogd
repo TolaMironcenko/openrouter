@@ -1,7 +1,4 @@
 #!/bin/sh
-Green='\033[0;32m'
-Color_off='\033[0m'
-Red='\033[0;31m'
 
 . /etc/init.d/init-functions
 
@@ -18,7 +15,7 @@ case "$1" in
 			check $?
 			rm /var/run/syslogd.pid &> /dev/null
 		else
-			notify "[$Red Syslogd is not running $Color_off]\n"
+			notify "[$Red Syslogd is not running $Color_Off]\n"
 		fi
 		;;
 	restart|reload)

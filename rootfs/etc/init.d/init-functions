@@ -68,7 +68,7 @@ check() {
   if [[ "$1" == "0" ]];then
     printf "[$Green OK $Color_Off]\n"
 	else
-		printf "[$Red ERR $Cpolor_Off]\n"
+		printf "[$Red ERR $Color_Off]\n"
 	fi
 }
 

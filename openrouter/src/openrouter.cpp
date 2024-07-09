@@ -39,8 +39,11 @@ int main() {
     srv.Post("/api/settings/ftp/set", set_ftp);
 
     srv.Post("/api/settings/wifi/status/get", get_wifi_status);
+    srv.Post("/api/settings/wifi/status/set", set_wifi_status);
     srv.Post("/api/settings/wifi/name/get", get_wifi_name);
+    srv.Post("/api/settings/wifi/name/set", set_wifi_name);
     srv.Post("/api/settings/wifi/password/get", get_wifi_password);
+    srv.Post("/api/settings/wifi/password/set", set_wifi_password);
 
     srv.Post("/api/reboot", reboot);
 

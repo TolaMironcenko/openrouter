@@ -1,9 +1,5 @@
 #!/bin/sh
 
-Green='\033[0;32m'
-Color_off='\033[0m'
-Red='\033[0;31m'
-
 DAEMON="iptables"
 
 IPTABLES_ARGS=""
@@ -37,7 +33,7 @@ save() {
 	iptables-save -f /etc/iptables.conf
 	status=$?
 	if [ "$status" -eq 0 ]; then
-		notify "[$Green OK $Color_off]\n"
+		notify "[$Green OK $Color_Off]\n"
 	else
 		echo "SKIP (read-only file system detected)"
 	fi

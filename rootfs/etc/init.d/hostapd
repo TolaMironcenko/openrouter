@@ -1,0 +1,33 @@
+#!/bin/sh
+
+. /etc/init.d/init-functions
+
+case "$1" in
+        start)
+                notify "Starting hostapd "
+                if [[ "$2" == "" ]]; then
+                    /usr/bin/hostapd -P /var/run/hostapd.pid /etc/hostapd/hostapd
+                    check $?
+                else
+                    /usr/bin/hostapd -P /var/run/hostapd.pid $2
+                    check $?
+                fi
+                ;;
+        stop)
+                notify "Stopping hostapd "
+                if [ ! -f /var/run/hostapd.pid ]; then
+                    notify "[$Red Dnsmasq is not running $Color_Off]\n"
+                    exit 1
+                fi
+                kill $(cat /var/run/hostapd.pid)
+                check $?
+                ;;
+        restart|reload)
+                "$0" stop
+                "$0" start
+                ;;
+        *)
+                echo "hostapd init script usage: $0 {start|stop|restart}"
+                return 1
+esac
+return $?
