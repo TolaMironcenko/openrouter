@@ -6,6 +6,8 @@ const showpasswordbutton = document.querySelector('#showpasswordbutton')
 const setwifisettings = document.querySelector('#setwifisettings')
 const shownewpasswordbutton = document.querySelector('#shownewpasswordbutton')
 const newwifipassword = document.querySelector('#newwifipassword')
+const wifiqr = document.querySelector('#wifiqr')
+const wifiqrimg = document.querySelector("#wifiqrimg")
 
 let old_wifi_name = ""
 
