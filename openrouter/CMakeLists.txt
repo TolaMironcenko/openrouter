@@ -23,10 +23,14 @@ add_executable(
     src/settings/wifi/status.cpp
     src/settings/wifi/name.cpp
     src/settings/wifi/password.cpp
+    src/settings/wifi/qr.cpp
 
     src/settings/ftp/ftp.cpp
 
     src/reboot/reboot.cpp
 
     src/syslog/syslog.cpp
+
+    src/libs/QR-Code-generator/qrcodegen.cpp
+    src/libs/QR-Code-generator/qrtosvg.cpp
 )  

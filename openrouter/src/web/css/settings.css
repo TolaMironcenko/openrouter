@@ -206,6 +206,17 @@ tbody>tr>th {
   justify-content: space-between; */
 }
 
+#wifiqrimg {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#wifiqrimg.active {
+  width: 100px;
+  height: 100px;
+}
+
 @media screen and (max-width: 1200px) {
   .settingrect {
     width: 50%;

@@ -9,7 +9,6 @@
 #include <string>
 #include <syslog.h>
 
-#define WIFI_SETTINGS_PATH "/etc/hostapd/hostapd.conf"
 #define WIFI_NAME_REQUIRED_STRING R"({"required":"[token,name]"})"
 
 void get_wifi_name(const httplib::Request &request, httplib::Response &response) {

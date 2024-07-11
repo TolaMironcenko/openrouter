@@ -9,7 +9,6 @@
 #include <string>
 #include <syslog.h>
 
-#define WIFI_SETTINGS_PATH "/etc/hostapd/hostapd.conf"
 #define WIFI_PASSWORD_REQUIRED_STRING R"({"required":"[token,password,newpassword]"})"
 
 void get_wifi_password(const httplib::Request &request, httplib::Response &response) {
