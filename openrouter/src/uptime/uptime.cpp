@@ -7,10 +7,10 @@ void get_uptime(const httplib::Request &request, httplib::Response &response) {
     struct sysinfo x;
     if (sysinfo(&x) == 0)
     {
-        std::cout << static_cast<unsigned long long>(x.uptime)/3600ULL << "h " 
-              << static_cast<unsigned long long>(x.uptime)/60ULL%60ULL << "m "
-              << static_cast<unsigned long long>(x.uptime)%60ULL << "s "
-              << std::endl;
+        // std::cout << static_cast<unsigned long long>(x.uptime)/3600ULL << "h " 
+        //       << static_cast<unsigned long long>(x.uptime)/60ULL%60ULL << "m "
+        //       << static_cast<unsigned long long>(x.uptime)%60ULL << "s "
+        //       << std::endl;
         std::stringstream responsedata;
         responsedata << R"({"uptime":{"hour":")" 
                      << static_cast<unsigned long long>(x.uptime)/3600ULL
