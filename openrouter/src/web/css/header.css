@@ -36,6 +36,8 @@ header {
 
 header>h1 {
     justify-self: center;
+    display: flex;
+    align-items: center;
 }
 
 @media screen and (max-width: 400px) {

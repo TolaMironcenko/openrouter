@@ -31,6 +31,7 @@ add_executable(
     src/reboot/reboot.cpp
 
     src/syslog/syslog.cpp
+    src/uptime/uptime.cpp
 
     src/libs/QR-Code-generator/qrcodegen.cpp
     src/libs/QR-Code-generator/qrtosvg.cpp

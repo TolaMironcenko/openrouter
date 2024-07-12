@@ -8,6 +8,7 @@
 #include "settings/wifi/wifi.hpp"
 #include "reboot/reboot.hpp"
 #include "syslog/syslog.hpp"
+#include "uptime/uptime.hpp"
 #include <syslog.h>
 
 #define CORS_ENABLE
@@ -51,6 +52,7 @@ int main() {
     srv.Post("/api/reboot", reboot);
 
     srv.Get("/api/syslog", get_syslog);
+    srv.Get("/api/uptime", get_uptime);
 
     srv.Options("/(.*)", set_cors_headers);
 

@@ -33,7 +33,6 @@ const set_wifi_status = () => {
         method: 'POST',
         body: `{"token":"${localStorage.getItem('token')}","status":"${wifistatus.checked?"1":"0"}"}`
     }).then(data => data.json()).then(jsondata => {
-        console.log(jsondata)
         if (jsondata.status === "1") {
             wifistatus.checked = true
             wifisettingsbody.classList.add('active')
@@ -65,7 +64,6 @@ const set_wifi_name = () => {
         method: 'POST',
         body: `{"token":"${localStorage.getItem('token')}","name":"${wifissid.value}"}`
     }).then(data => data.json()).then(jsondata => {
-        console.log(jsondata)
         wifissid.value = jsondata.name
         old_wifi_name = jsondata.name
         notification("Имя WIFI оспешно сорранено", "success")
