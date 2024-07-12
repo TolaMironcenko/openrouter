@@ -16,4 +16,7 @@ void set_wifi_password(const httplib::Request &request, httplib::Response &respo
 
 void get_wifi_qr(const httplib::Request &request, httplib::Response &response);
 
+void get_wifi_channel(const httplib::Request &request, httplib::Response &response);
+void set_wifi_channel(const httplib::Request &request, httplib::Response &response);
+
 #endif // WIFI_HPP

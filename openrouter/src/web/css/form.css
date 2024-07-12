@@ -77,6 +77,11 @@
     background-color: inherit;
 }
 
+.forminput>option {
+    background-color: inherit;
+    color: black;
+}
+
 .forminput:focus {
     border: 5px solid;
 }

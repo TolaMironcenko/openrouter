@@ -8,6 +8,7 @@ const shownewpasswordbutton = document.querySelector('#shownewpasswordbutton')
 const newwifipassword = document.querySelector('#newwifipassword')
 const wifiqr = document.querySelector('#wifiqr')
 const wifiqrimg = document.querySelector("#wifiqrimg")
+const channelselect = document.querySelector('#wifichannel')
 
 let old_wifi_name = ""
 
@@ -106,6 +107,7 @@ const set_wifi_settings = () => {
         start_loader()
         set_wifi_status()
         if (wifistatus.checked) {
+            set_wifi_channel()
             if (old_wifi_name !== wifissid.value) {
                 set_wifi_name()
             }
@@ -164,3 +166,25 @@ wifiqr.addEventListener('click', () => {
     wifiqrimg.classList.remove('active')
     wifiqrimg.innerHTML = ""
 })
+
+const get_wifi_channel = () => {
+    fetch(routes.wifi_channel_get(), {
+        method: 'POST',
+        body: `{"token":"${localStorage.getItem('token')}"}`
+    }).then(data => data.json()).then(jsondata => {
+        channelselect.value = jsondata.channel
+    }).catch((error) => {
+        notification(`Ошибка на сервере: ${error}`, "error")
+    })
+}
+
+const set_wifi_channel = () => {
+    fetch(routes.wifi_channel_set(), {
+        method: 'POST',
+        body: `{"token":"${localStorage.getItem('token')}","channel":"${channelselect.value}"}`
+    }).then(data => data.json()).then(jsondata => {
+        channelselect.value = jsondata.channel
+    }).catch((error) => {
+        notification(`Ошибка на сервере: ${error}`, "error")
+    })
+} 

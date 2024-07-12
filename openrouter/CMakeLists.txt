@@ -24,6 +24,7 @@ add_executable(
     src/settings/wifi/name.cpp
     src/settings/wifi/password.cpp
     src/settings/wifi/qr.cpp
+    src/settings/wifi/channel.cpp
 
     src/settings/ftp/ftp.cpp
 

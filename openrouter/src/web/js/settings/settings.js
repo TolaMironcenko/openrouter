@@ -14,5 +14,6 @@ const get_all_settings = () => {
 
     get_wifi_status()
     get_wifi_name()
+    get_wifi_channel()
     // get_wifi_password()
 }

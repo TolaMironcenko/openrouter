@@ -45,6 +45,8 @@ int main() {
     srv.Post("/api/settings/wifi/password/get", get_wifi_password);
     srv.Post("/api/settings/wifi/password/set", set_wifi_password);
     srv.Post("/api/settings/wifi/qr/get", get_wifi_qr);
+    srv.Post("/api/settings/wifi/channel/get", get_wifi_channel);
+    srv.Post("/api/settings/wifi/channel/set", set_wifi_channel);
 
     srv.Post("/api/reboot", reboot);
 
