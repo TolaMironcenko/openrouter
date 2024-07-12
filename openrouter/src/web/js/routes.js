@@ -33,6 +33,7 @@ const routes = {
     wifi_name_set: () => [host, prefix, 'settings', 'wifi', 'name', 'set'].join('/'),
     wifi_password_get: () => [host, prefix, 'settings', 'wifi', 'password', 'get'].join('/'),
     wifi_password_set: () => [host, prefix, 'settings', 'wifi', 'password', 'set'].join('/'),
+    wifi_qr_get: () => [host, prefix, 'settings', 'wifi', 'qr', 'get' ].join('/'),
 
     reboot: () => [host, prefix, 'reboot'].join('/'),
     syslog: () => [host, prefix, 'syslog'].join('/'),

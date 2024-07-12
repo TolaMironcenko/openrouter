@@ -7,6 +7,6 @@
 #define STRING403 R"({"status":"403"})"
 #define JSON_TYPE "application/json"
 #define PLAIN_TEXT_TYPE "text/plain"
-#define SVG_TYPE "image/svg"
+#define SVG_TYPE "image/svg+xml"
 
 #endif // TYPES_H

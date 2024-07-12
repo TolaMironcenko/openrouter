@@ -53,8 +53,6 @@ void get_wifi_qr(const httplib::Request &request, httplib::Response &response) {
         std::stringstream toqrstring;
         toqrstring << "WIFI:T:WPA;P:" << wifi_password << ";S:" << wifi_name << ";";
 
-        std::cout << toqrstring.str() << std::endl;
-
         qrcodegen::QrCode qr0  = qrcodegen::QrCode::encodeText(toqrstring.str().c_str(), qrcodegen::QrCode::Ecc::MEDIUM);
         std::string responsedata = toSvgString(qr0, 4);
         response.set_content(responsedata, SVG_TYPE);

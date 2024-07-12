@@ -142,3 +142,25 @@ shownewpasswordbutton.addEventListener('click', () => {
     }
     newwifipassword.type = "password"
 })
+
+const get_wifi_qr_code = () => {
+    fetch(routes.wifi_qr_get(), {
+        method: 'POST',
+        body: `{"token":"${localStorage.getItem('token')}"}`
+    }).then(data => data.text()).then(svgdata => {
+        wifiqrimg.innerHTML = svgdata
+    }).catch((error) => {
+        notification(`Ошибка на сервере: ${error}`, "error")
+    })
+}
+
+wifiqr.addEventListener('click', () => {
+    if (wifiqr.checked) {
+        get_wifi_qr_code()
+        wifiqrimg.innerHTML = 
+        wifiqrimg.classList.add('active')
+        return
+    }
+    wifiqrimg.classList.remove('active')
+    wifiqrimg.innerHTML = ""
+})
