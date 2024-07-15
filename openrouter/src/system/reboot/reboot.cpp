@@ -3,6 +3,7 @@
 #include "../routes.hpp"
 #include <colors.h>
 #include "../types.hpp"
+#include "../../auth/auth.hpp"
 
 namespace systemfuncs {
     void reboot(const httplib::Request &request, httplib::Response &response) {
@@ -19,19 +20,9 @@ namespace systemfuncs {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             system("reboot");
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

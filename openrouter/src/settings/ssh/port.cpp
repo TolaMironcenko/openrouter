@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define SSH_PORT_REQUIRED_STRING R"({"required":"[token,port]"})"
 #define SSH_PORT_PATH "/etc/openrouter/ssh/port"
@@ -27,18 +28,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream sshportfile(SSH_PORT_PATH);
             int ssh_port;
             sshportfile >> ssh_port;
@@ -46,8 +36,11 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"port":")" << ssh_port << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
+
     void set_ssh_port(const httplib::Request &request, httplib::Response &response) {
         std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
         response.set_header("Access-Control-Allow-Origin", "*");
@@ -67,18 +60,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream oldsshportfile(SSH_PORT_PATH);
             int old_ssh_port;
             oldsshportfile >> old_ssh_port;
@@ -101,6 +83,8 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"port":")" << ssh_port << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

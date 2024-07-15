@@ -4,6 +4,7 @@
 #include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define KEYS_PATH "/root/.ssh/authorized_keys"
 
@@ -22,18 +23,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream keysfile(KEYS_PATH);
             std::stringstream responsedata;
             responsedata << R"({"keys":[)";
@@ -54,8 +44,11 @@ namespace settings {
             }
             keysfile.close();
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
+
     void set_ssh_keys(const httplib::Request &request, httplib::Response &response) {
         std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
         response.set_header("Access-Control-Allow-Origin", "*");
@@ -70,18 +63,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ofstream keysfile(KEYS_PATH);
             nlohmann::json keys = json_body["keys"];
             for (std::string key : keys) {
@@ -92,6 +74,8 @@ namespace settings {
             syslog(LOG_INFO, "SSH keys changed");
             std::string responsedata = R"({"success":"true"})";
             response.set_content(responsedata, JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

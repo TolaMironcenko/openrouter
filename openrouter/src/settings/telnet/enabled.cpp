@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define TELNET_REQUIRED_STRING R"({"required":"[token,enabled]"})"
 
@@ -26,18 +27,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream telnetfile("/etc/openrouter/telnet/enabled");
             int telnet_enabled;
             telnetfile >> telnet_enabled;
@@ -45,7 +35,9 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"enabled":")" << telnet_enabled << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 
     void set_telnet(const httplib::Request &request, httplib::Response &response) {
@@ -67,18 +59,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ofstream telnetfileout("/etc/openrouter/telnet/enabled");
             std::string new_telnet_enabled = json_body["enabled"];
             if (new_telnet_enabled == "0") {
@@ -99,6 +80,8 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"enabled":")" << telnet_enabled << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

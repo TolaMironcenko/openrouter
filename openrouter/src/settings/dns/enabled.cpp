@@ -4,6 +4,7 @@
 #include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define DNS_REQUIRED_STRING R"({"required":"[token,enabled]"})"
 
@@ -22,18 +23,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream dnsfile("/etc/openrouter/dns");
             int dns_enabled;
             dnsfile >> dns_enabled;
@@ -41,7 +31,9 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"enabled":")" << dns_enabled << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 
     void set_dns(const httplib::Request &request, httplib::Response &response) {
@@ -63,18 +55,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ofstream dnsfileout("/etc/openrouter/dns");
             std::string new_dns_enabled = json_body["enabled"];
             if (new_dns_enabled == "0") {
@@ -95,6 +76,8 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"enabled":")" << dns_enabled << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

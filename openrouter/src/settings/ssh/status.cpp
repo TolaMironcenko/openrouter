@@ -4,6 +4,7 @@
 #include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define SSH_REQUIRED_STRING R"({"required":"[token,status]"})"
 
@@ -22,18 +23,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream sshstatusfile("/etc/openrouter/ssh/status");
             int ssh_status;
             sshstatusfile >> ssh_status;
@@ -41,8 +31,11 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"status":")" << ssh_status << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
+
     void set_ssh_status(const httplib::Request &request, httplib::Response &response) {
         std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
         response.set_header("Access-Control-Allow-Origin", "*");
@@ -62,18 +55,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ofstream sshfileout("/etc/openrouter/ssh/status");
             std::string new_ssh_status = json_body["status"];
             if (new_ssh_status == "0") {
@@ -94,6 +76,8 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"status":")" << ssh_status << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

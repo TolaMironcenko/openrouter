@@ -4,6 +4,7 @@
 #include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 namespace settings {
     void get_local_domains(const httplib::Request &request, httplib::Response &response) {
@@ -20,18 +21,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream domainsfile("/etc/dnsmasq.conf.d/hosts");
             std::stringstream responsedata;
             responsedata << R"({"domains":[)";
@@ -56,7 +46,9 @@ namespace settings {
             }
             domainsfile.close();
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 
     void set_local_domains(const httplib::Request &request, httplib::Response &response) {
@@ -73,18 +65,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ofstream domainsfile("/etc/dnsmasq.conf.d/hosts");
             nlohmann::json domains = json_body["domains"];
             for (nlohmann::json_abi_v3_11_3::json domain : domains) {
@@ -97,6 +78,8 @@ namespace settings {
             syslog(LOG_INFO, "DNS local domains changed");
             std::string responsedata = R"({"success":"true"})";
             response.set_content(responsedata, JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

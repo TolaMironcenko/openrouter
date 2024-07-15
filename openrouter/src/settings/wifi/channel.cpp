@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define WIFI_CHANNEL_REQUIRED_STRING R"({"required":"[token,channel]"})"
 
@@ -26,18 +27,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream wifisettingsfile(WIFI_SETTINGS_PATH);
             std::string wifi_channel;
             std::string wifisettingsbuffer;
@@ -52,7 +42,9 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"channel":")" << wifi_channel << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 
     void set_wifi_channel(const httplib::Request &request, httplib::Response &response) {
@@ -74,18 +66,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream wifisettingsfile(WIFI_SETTINGS_PATH);
             std::string old_channel;
             std::string wifisettingsbuffer;
@@ -120,6 +101,8 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"channel":")" << wifi_channel << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

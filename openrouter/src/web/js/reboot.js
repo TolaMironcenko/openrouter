@@ -20,10 +20,7 @@ const reboot = () => {
 }
 
 const waitreboot = () => {
-    fetch(routes.telnet_status(), {
-        method: 'POST',
-        body: `{"token":"${localStorage.getItem("token")}"}`
-    }).then(res => res.json()).then(jsondata => {
+    fetch(routes.uptime()).then(res => res.json()).then(jsondata => {
         stop_loader()
     }).catch((error) => {
         waitreboot()

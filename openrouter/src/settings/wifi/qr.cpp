@@ -5,6 +5,7 @@
 #include "../../types.hpp"
 #include <QR-Code-generator/qrcodegen.hpp>
 #include <QR-Code-generator/qrtosvg.hpp>
+#include "../../auth/auth.hpp"
 
 namespace settings {
     void get_wifi_qr(const httplib::Request &request, httplib::Response &response) {
@@ -21,19 +22,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
-
+        if (authenticate(json_body["token"])) {
             std::ifstream wifisettingsfile(WIFI_SETTINGS_PATH);
             std::string wifi_name;
             std::string wifi_password;
@@ -57,6 +46,8 @@ namespace settings {
             qrcodegen::QrCode qr0  = qrcodegen::QrCode::encodeText(toqrstring.str().c_str(), qrcodegen::QrCode::Ecc::MEDIUM);
             std::string responsedata = toSvgString(qr0, 4);
             response.set_content(responsedata, SVG_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

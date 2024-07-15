@@ -35,6 +35,8 @@ add_executable(
 
     src/OpenRouter/OpenRouter.cpp
 
+    src/auth/auth.cpp
+
     src/libs/QR-Code-generator/qrcodegen.cpp
     src/libs/QR-Code-generator/qrtosvg.cpp
 )  

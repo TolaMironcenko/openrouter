@@ -4,6 +4,7 @@
 #include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
+#include "../../auth/auth.hpp"
 
 #define WIFI_REQUIRED_STRING R"({"required":"[token,status]"})"
 namespace settings {
@@ -21,18 +22,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ifstream wifistatusfile("/etc/openrouter/wifi/status");
             int wifi_status;
             wifistatusfile >> wifi_status;
@@ -40,7 +30,9 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"status":")" << wifi_status << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 
     void set_wifi_status(const httplib::Request &request, httplib::Response &response) {
@@ -62,18 +54,7 @@ namespace settings {
             return;
         }
 
-        httplib::Client cli(AUTH_SERVICE);
-
-        std::stringstream body;
-        body <<  R"({"token":)" << json_body["token"] << R"(})";
-
-        httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
-        if (res->status == httplib::OK_200) {
-            nlohmann::json resjson = nlohmann::json::parse(res->body);
-            if (resjson["access"] == "reject") {
-                response.set_content(resjson.dump().c_str(), JSON_TYPE);
-                return;
-            }
+        if (authenticate(json_body["token"])) {
             std::ofstream wififileout("/etc/openrouter/wifi/status");
             std::string new_wifi_status = json_body["status"];
             if (new_wifi_status == "0") {
@@ -94,6 +75,8 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"status":")" << wifi_status << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
+            return;
         }
+        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }
