@@ -28,10 +28,12 @@ add_executable(
 
     src/settings/ftp/ftp.cpp
 
-    src/reboot/reboot.cpp
+    src/system/reboot/reboot.cpp
 
-    src/syslog/syslog.cpp
-    src/uptime/uptime.cpp
+    src/system/syslog/syslog.cpp
+    src/system/uptime/uptime.cpp
+
+    src/OpenRouter/OpenRouter.cpp
 
     src/libs/QR-Code-generator/qrcodegen.cpp
     src/libs/QR-Code-generator/qrtosvg.cpp
