@@ -13,7 +13,7 @@ class OpenRouter {
     public:
         OpenRouter();
         ~OpenRouter();
-        int serve(const std::string *ip, int port, int socket_flags = 0);
+        int serve(const std::string &ip, int port, int socket_flags = 0);
 };
 
 #endif // OPENROUTER_HPP

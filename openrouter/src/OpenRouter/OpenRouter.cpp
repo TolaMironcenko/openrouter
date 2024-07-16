@@ -52,11 +52,11 @@ OpenRouter::OpenRouter() {
 
 OpenRouter::~OpenRouter() = default;
 
-int OpenRouter::serve(const std::string *ip, int port, int socket_flags) {
+int OpenRouter::serve(const std::string &ip, int port, int socket_flags) {
     std::cout << GREEN << "Starting" << RESET << " server on [ " << YELLOW
             << "0.0.0.0" << RESET << ":" << CYAN << "43244" << RESET << " ]" << std::endl;
 
     syslog(LOG_INFO, "openrouter administration software started.");
-    srv.listen("127.0.0.1", 43244);
+    this->srv.listen(ip, port, socket_flags);
     return 0;
 }
