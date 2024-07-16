@@ -65,7 +65,7 @@ namespace settings {
             telnetportfileout.close();
             system("rc restart telnet");
             std::string syslogstring = "Telnet port changed to " + new_telnet_port;
-            syslog(LOG_INFO, syslogstring.c_str());
+            syslog(LOG_INFO, "%s", syslogstring.c_str());
             std::ifstream telnetportfile("/etc/openrouter/telnet/port");
             int telnet_port;
             telnetportfile >> telnet_port;

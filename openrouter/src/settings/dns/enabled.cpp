@@ -60,11 +60,11 @@ namespace settings {
             if (new_dns_enabled == "0") {
                 system("rc stop dnsmasq");
                 system("rc del dnsmasq");
-                syslog(LOG_INFO, "DNS is disabled");
+                syslog(LOG_INFO, "%s", "DNS is disabled");
             } else {
                 system("rc restart dnsmasq");
                 system("rc add dnsmasq");
-                syslog(LOG_INFO, "DNS is enabled");
+                syslog(LOG_INFO, "%s", "DNS is enabled");
             }
             dnsfileout << stoi(new_dns_enabled);
             dnsfileout.close();

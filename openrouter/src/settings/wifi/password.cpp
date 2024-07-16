@@ -93,7 +93,7 @@ namespace settings {
             system(systemrequest.str().c_str());
             system("rc restart hostapd");
             std::string syslogstring = "WIFI password changed";
-            syslog(LOG_INFO, syslogstring.c_str());
+            syslog(LOG_INFO, "%s", syslogstring.c_str());
             std::stringstream responsedata;
             responsedata << R"({"success":"ok"})";
             response.set_content(responsedata.str(), JSON_TYPE);

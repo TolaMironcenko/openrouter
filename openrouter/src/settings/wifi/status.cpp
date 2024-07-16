@@ -59,11 +59,11 @@ namespace settings {
             if (new_wifi_status == "0") {
                 system("rc stop hostapd");
                 system("rc del hostapd");
-                syslog(LOG_INFO, "WIFI is disabled");
+                syslog(LOG_INFO, "%s", "WIFI is disabled");
             } else {
                 system("rc start hostapd");
                 system("rc add hostapd");
-                syslog(LOG_INFO, "WIFI is enabled");
+                syslog(LOG_INFO, "%s", "WIFI is enabled");
             }
             wififileout << stoi(new_wifi_status);
             wififileout.close();

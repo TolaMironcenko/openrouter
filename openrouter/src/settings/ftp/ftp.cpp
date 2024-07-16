@@ -60,11 +60,11 @@ namespace settings {
             if (new_ftp_enabled == "0") {
                 system("rc stop ftp");
                 system("rc del ftp");
-                syslog(LOG_INFO, "Ftp is disabled");
+                syslog(LOG_INFO, "%s", "Ftp is disabled");
             } else {
                 system("rc start ftp");
                 system("rc add ftp");
-                syslog(LOG_INFO, "Ftp is enabled");
+                syslog(LOG_INFO, "%s", "Ftp is enabled");
             }
             ftpfileout << stoi(new_ftp_enabled);
             ftpfileout.close();

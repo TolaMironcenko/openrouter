@@ -64,11 +64,11 @@ namespace settings {
             if (new_telnet_enabled == "0") {
                 system("rc stop telnet");
                 system("rc del telnet");
-                syslog(LOG_INFO, "Telnet is disabled");
+                syslog(LOG_INFO, "%s", "Telnet is disabled");
             } else {
                 system("rc start telnet");
                 system("rc add telnet");
-                syslog(LOG_INFO, "Telnet is enabled");
+                syslog(LOG_INFO, "%s", "Telnet is enabled");
             }
             telnetfileout << stoi(new_telnet_enabled);
             telnetfileout.close();

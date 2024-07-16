@@ -74,7 +74,7 @@ namespace settings {
             }
             domainsfile.close();
             system("rc restart dnsmasq");
-            syslog(LOG_INFO, "DNS local domains changed");
+            syslog(LOG_INFO, "%s", "DNS local domains changed");
             std::string responsedata = R"({"success":"true"})";
             response.set_content(responsedata, JSON_TYPE);
             return;

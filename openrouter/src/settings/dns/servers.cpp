@@ -61,7 +61,7 @@ namespace settings {
         if (authenticate(json_body["token"])) {
             std::ofstream dnsserversfile("/etc/dnsmasq.conf.d/resolv.conf");
             nlohmann::json servers = json_body["servers"];
-            for (const nlohmann::json_abi_v3_11_3::json server : servers) {
+            for (const nlohmann::json_abi_v3_11_3::json &server : servers) {
                 std::string srv = server;
                 if (server.empty()) {
                     continue;
@@ -70,7 +70,7 @@ namespace settings {
             }
             dnsserversfile.close();
             system("rc restart dnsmasq");
-            syslog(LOG_INFO, "DNS servers changed");
+            syslog(LOG_INFO, "%s", "DNS servers changed");
             std::string responsedata = R"({"success":"true"})";
             response.set_content(responsedata, JSON_TYPE);
             return;

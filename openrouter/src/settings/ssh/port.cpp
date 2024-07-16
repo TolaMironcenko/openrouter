@@ -74,7 +74,7 @@ namespace settings {
             system(systemrequest.str().c_str());
             system("rc restart ssh");
             std::string syslogstring = "SSH port changed to " + new_ssh_port;
-            syslog(LOG_INFO, syslogstring.c_str());
+            syslog(LOG_INFO, "%s", syslogstring.c_str());
             std::ifstream sshportfile(SSH_PORT_PATH);
             int ssh_port;
             sshportfile >> ssh_port;

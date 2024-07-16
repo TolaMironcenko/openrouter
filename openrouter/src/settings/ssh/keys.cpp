@@ -70,7 +70,7 @@ namespace settings {
             }
             keysfile.close();
             system("rc restart ssh");
-            syslog(LOG_INFO, "SSH keys changed");
+            syslog(LOG_INFO, "%s", "SSH keys changed");
             std::string responsedata = R"({"success":"true"})";
             response.set_content(responsedata, JSON_TYPE);
             return;

@@ -60,11 +60,11 @@ namespace settings {
             if (new_ssh_status == "0") {
                 system("rc stop ssh");
                 system("rc del ssh");
-                syslog(LOG_INFO, "SSH is disabled");
+                syslog(LOG_INFO, "%s", "SSH is disabled");
             } else {
                 system("rc start ssh");
                 system("rc add ssh");
-                syslog(LOG_INFO, "SSH is enabled");
+                syslog(LOG_INFO, "%s", "SSH is enabled");
             }
             sshfileout << stoi(new_ssh_status);
             sshfileout.close();

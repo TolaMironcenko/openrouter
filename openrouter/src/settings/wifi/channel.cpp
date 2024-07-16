@@ -84,7 +84,7 @@ namespace settings {
             system(systemrequest.str().c_str());
             system("rc restart hostapd");
             std::string syslogstring = "WIFI channel changed to " + new_channel;
-            syslog(LOG_INFO, syslogstring.c_str());
+            syslog(LOG_INFO, "%s", syslogstring.c_str());
 
             std::ifstream changedwifisettingsfile(WIFI_SETTINGS_PATH);
             std::string wifi_channel;
