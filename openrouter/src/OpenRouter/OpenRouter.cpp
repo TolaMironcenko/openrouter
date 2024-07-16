@@ -1,4 +1,9 @@
 #include "OpenRouter.hpp"
+#include <colors.h>
+#include "../settings/settings.hpp"
+#include "../system/system.hpp"
+#include <syslog.h>
+#include "../security/cors.hpp"
 
 OpenRouter::OpenRouter() {
     this->srv.Post("/api/settings/telnet/get", settings::get_telnet);
@@ -45,11 +50,9 @@ OpenRouter::OpenRouter() {
     this->srv.set_mount_point("/css", "../src/web/css");
 }
 
-OpenRouter::~OpenRouter() {
-    
-}
+OpenRouter::~OpenRouter() = default;
 
-int OpenRouter::serve(const std::string ip, int port, int socket_flags) {
+int OpenRouter::serve(const std::string *ip, int port, int socket_flags) {
     std::cout << GREEN << "Starting" << RESET << " server on [ " << YELLOW
             << "0.0.0.0" << RESET << ":" << CYAN << "43244" << RESET << " ]" << std::endl;
 

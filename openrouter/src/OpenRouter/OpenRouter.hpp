@@ -3,13 +3,8 @@
 
 #include <iostream>
 #include <httplib.h>
-#include <colors.h>
-#include "../settings/settings.hpp"
-#include "../system/system.hpp"
-#include <syslog.h>
 
 #define CORS_ENABLE
-#include "../security/cors.hpp"
 
 class OpenRouter {
     private:
@@ -18,7 +13,7 @@ class OpenRouter {
     public:
         OpenRouter();
         ~OpenRouter();
-        int serve(const std::string ip, int port, int socket_flags = 0);
+        int serve(const std::string *ip, int port, int socket_flags = 0);
 };
 
 #endif // OPENROUTER_HPP

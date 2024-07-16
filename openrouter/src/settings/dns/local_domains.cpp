@@ -1,7 +1,6 @@
 #include "dns.hpp"
 #include <colors.h>
 #include <json.hpp>
-#include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
 #include "../../auth/auth.hpp"
@@ -31,7 +30,7 @@ namespace settings {
             while (!domainsfile.eof()) {
                 domainsfile >> ip_string;
                 domainsfile >> domain_string;
-                if (domain_string == "") {
+                if (domain_string.empty()) {
                     continue;
                 }
                 responsedata << R"({"ip":")" << ip_string << R"(","domain":")" << domain_string << R"("},)";

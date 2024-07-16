@@ -1,7 +1,6 @@
 #include "dns.hpp"
 #include <colors.h>
 #include <json.hpp>
-#include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
 #include "../../auth/auth.hpp"
@@ -62,9 +61,9 @@ namespace settings {
         if (authenticate(json_body["token"])) {
             std::ofstream dnsserversfile("/etc/dnsmasq.conf.d/resolv.conf");
             nlohmann::json servers = json_body["servers"];
-            for (nlohmann::json_abi_v3_11_3::json server : servers) {
+            for (const nlohmann::json_abi_v3_11_3::json server : servers) {
                 std::string srv = server;
-                if (server == "") {
+                if (server.empty()) {
                     continue;
                 }
                 dnsserversfile << "nameserver " << srv << "\n";

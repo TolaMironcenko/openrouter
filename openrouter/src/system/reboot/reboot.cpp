@@ -1,6 +1,5 @@
 #include "reboot.hpp"
 #include <json.hpp>
-#include "../routes.hpp"
 #include <colors.h>
 #include "../types.hpp"
 #include "../../auth/auth.hpp"

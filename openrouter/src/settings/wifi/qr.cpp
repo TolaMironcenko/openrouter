@@ -1,7 +1,6 @@
 #include "wifi.hpp"
 #include <colors.h>
 #include <json.hpp>
-#include "../../routes.hpp"
 #include "../../types.hpp"
 #include <QR-Code-generator/qrcodegen.hpp>
 #include <QR-Code-generator/qrtosvg.hpp>

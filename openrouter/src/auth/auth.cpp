@@ -5,12 +5,12 @@
 #include <json.hpp>
 #include "../types.hpp"
 
-bool authenticate(std::string token) {
+bool authenticate(const std::string &token) {
     httplib::Client cli(AUTH_SERVICE);
 
     std::stringstream body;
     body <<  R"({"token":")" << token << R"("})";
-    httplib::Result res = cli.Post("/api/access", body.str().c_str(), JSON_TYPE);
+    httplib::Result res = cli.Post("/api/access", body.str(), JSON_TYPE);
     if (res->status == httplib::OK_200) {
         nlohmann::json resjson = nlohmann::json::parse(res->body);
         if (resjson["access"] == "reject") {

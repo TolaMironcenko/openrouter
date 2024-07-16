@@ -1,7 +1,6 @@
 #include "ssh.hpp"
 #include <colors.h>
 #include <json.hpp>
-#include "../../routes.hpp"
 #include "../../types.hpp"
 #include <syslog.h>
 #include "../../auth/auth.hpp"
@@ -30,7 +29,7 @@ namespace settings {
             std::string key_string = "";
             int iter = 0;
             while (std::getline(keysfile, key_string)) {
-                if (key_string == "") {
+                if (key_string.empty()) {
                     continue;
                 }
                 responsedata << R"(")" << key_string << R"(",)";
