@@ -63,7 +63,7 @@ namespace settings {
             nlohmann::json servers = json_body["servers"];
             for (const nlohmann::json_abi_v3_11_3::json &server : servers) {
                 std::string srv = server;
-                if (server.empty()) {
+                if (server == "") {
                     continue;
                 }
                 dnsserversfile << "nameserver " << srv << "\n";
