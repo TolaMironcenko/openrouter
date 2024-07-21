@@ -21,6 +21,7 @@
             <div class="links">
                 <button class="linkbutton" id="syslogbutton">Syslog</button>
                 <button class="linkbutton" id="settingsbutton">Settings</button>
+                <button class="linkbutton" id="infobutton">Info</button>
                 <button class="linkbutton" id="rebootbutton">Reboot</button>
             </div>
             <h1>Openrouter Admin  Uptime: <p id="uptime"></p></h1>
@@ -130,7 +131,7 @@
                     </div>
                 </div>
                 <!-- ssh settings -->
-                <!-- wifi settings -->
+                <!-- Wi-Fi settings -->
                 <div class="settingrect ">
                     <div class="settingrectheader">
                         <h2>WIFI</h2>
@@ -173,7 +174,7 @@
                         <button class="settingrectfooterbutton" id="setwifisettings">Confirm</button>
                     </div>
                 </div>
-                <!-- wifi settings -->
+                <!-- Wi-Fi settings -->
             </section>
             <!-- syslog block -->
             <section class="syslogsection">
@@ -186,6 +187,7 @@
                 <div class="syslogdata"></div>
             </section>
             <!-- syslog block -->
+            <section class="infosection"></section>
         </div>
         <!-- settings block -->
     </section>
@@ -240,7 +242,7 @@
      <!-- add local domain form -->
     <div class="form" id="addlocaldomainform">
         <div class="formbody addlocaldomainformbody">
-            <h1 class="formheader" id="addlocaldomainform">Add Local Domain</h1>
+            <h1 class="formheader" id="addlocaldomainformheader">Add Local Domain</h1>
             <div class="forminputbody addlocaldomainform">
                 <label for="ipinput" class="forminputlabel">IP</label>
                 <input required type="text" class="forminput" id="ipinput">
