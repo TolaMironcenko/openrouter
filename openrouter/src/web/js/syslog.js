@@ -2,6 +2,7 @@ const syslogdata = document.querySelector('.syslogdata')
 const refreshbutton = document.querySelector('#refreshbutton')
 const openrouterfilter = document.querySelector('#openrouterfilter')
 const authservicefilter = document.querySelector('#authservicefilter')
+const realtimesyslogchekbox = document.querySelector('#realtimesyslog')
 
 let openrouterfilterenable = false
 let authservicefilerenable = false
@@ -67,3 +68,13 @@ const authservicefilterfunc = (textdata) => {
     }
     return
 }
+
+realtimesyslogchekbox.addEventListener('click', () => {
+    if (realtimesyslogchekbox.checked) {
+        let socket = new WebSocket("ws://192.168.122.76/syslog");
+
+        socket.onmessage = function(event) {
+            console.log(event.data)
+        };
+    }
+})
