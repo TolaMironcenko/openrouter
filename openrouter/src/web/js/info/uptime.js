@@ -16,4 +16,8 @@ const get_uptime = () => {
     })
 }
 
-setInterval(get_uptime, 1000)
+window.addEventListener('load', () => {
+    if (infosection.classList.contains('active')) {
+        uptimeintervalid = setInterval(get_uptime, 1000)
+    }
+})

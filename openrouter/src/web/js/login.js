@@ -10,9 +10,8 @@ if (localStorage.getItem("token") === null) {
     adminpanelsection.classList.remove('active')
     loginform.classList.add('active')
 } else {
-    get_all_settings()
     adminpanelsection.classList.add('active')
-    settingssection.classList.add('active')
+    infosection.classList.add('active')
     headerusername.innerHTML = JSON.parse(localStorage.getItem('userdata')).username
 }
 

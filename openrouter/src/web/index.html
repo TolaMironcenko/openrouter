@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/button.css">
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/syslog.css">
+    <link rel="stylesheet" href="css/info.css">
     <title>Openrouter Admin</title>
 </head>
 
@@ -26,8 +27,7 @@
                 <button class="linkbutton" id="infobutton">Info</button>
                 <button class="linkbutton" id="rebootbutton">Reboot</button>
             </div>
-            <h1>Openrouter Admin Uptime: <p id="uptime"></p>
-            </h1>
+            <h1><img id="openroutericon" src="favicon.ico" alt="icon">Openrouter Admin</h1>
             <div class="userbuttons">
                 <h1 class="headerusername"></h1>
                 <button class="exitbutton">Exit</button>
@@ -198,7 +198,16 @@
                 <div class="syslogdata"></div>
             </section>
             <!-- syslog block -->
-            <section class="infosection"></section>
+            <section class="infosection">
+                <div class="inforect">
+                    <label for="infoversion">Version: </label>
+                    <p id="version">0.1.1</p>    
+                </div>
+                <div class="inforect">
+                    <label for="infouptime">Uptime: </label>
+                    <p id="uptime"></p>
+                </div>
+            </section>
         </div>
         <!-- settings block -->
     </section>
@@ -292,7 +301,7 @@
 
     <script src="js/reboot.js"></script>
     <script src="js/syslog.js"></script>
-    <script src="js/uptime.js"></script>
+    <script src="js/info/uptime.js"></script>
     <script src="js/login.js"></script>
 </body>
 
