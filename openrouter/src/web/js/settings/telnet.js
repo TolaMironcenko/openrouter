@@ -27,7 +27,7 @@ const get_telnet_enabled_status = () => {
 const set_telnet_enabled_status = () => {
     fetch(routes.telnet_status_set(), {
         method: 'POST',
-        body: `{"token":"${localStorage.getItem("token")}","enabled":"${telnetenabled.checked?1:0}"}`
+        body: `{"token":"${localStorage.getItem("token")}","enabled":"${telnetenabled.checked ? 1 : 0}"}`
     }).then(res => res.json()).then(jsondata => {
         if (jsondata.enabled === '1') {
             telnetenabled.checked = true

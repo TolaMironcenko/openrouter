@@ -8,26 +8,31 @@
 #include <string>
 #include <syslog.h>
 #include "../../auth/auth.hpp"
+#include "../../helpers.hpp"
 
 #define SSH_PORT_REQUIRED_STRING R"({"required":"[token,port]"})"
 #define SSH_PORT_PATH "/etc/openrouter/ssh/port"
 
-namespace settings {
-    void get_ssh_port(const httplib::Request &request, httplib::Response &response) {
-        std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
-        response.set_header("Access-Control-Allow-Origin", "*");
-        if (request.body.empty()) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
+namespace api
+{
+    namespace settings
+    {
+        void get_ssh_port(const httplib::Request &request, httplib::Response &response)
+        {
+            std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
+            response.set_header("Access-Control-Allow-Origin", "*");
+            if (!check_body(request))
+            {
+                response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
+                return;
+            }
+            nlohmann::json json_body = nlohmann::json::parse(request.body);
 
-        nlohmann::json json_body = nlohmann::json::parse(request.body);
-        if (json_body["token"] == nullptr) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
-
-        if (authenticate(json_body["token"])) {
+            if (!authenticate(json_body["token"]))
+            {
+                response.set_content(R"({"access":"reject"})", JSON_TYPE);
+                return;
+            }
             std::ifstream sshportfile(SSH_PORT_PATH);
             int ssh_port;
             sshportfile >> ssh_port;
@@ -35,31 +40,30 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"port":")" << ssh_port << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
-            return;
-        }
-        response.set_content(R"({"access":"reject"})", JSON_TYPE);
-    }
-
-    void set_ssh_port(const httplib::Request &request, httplib::Response &response) {
-        std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
-        response.set_header("Access-Control-Allow-Origin", "*");
-        if (request.body.empty()) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
         }
 
-        nlohmann::json json_body = nlohmann::json::parse(request.body);
-        if (json_body["token"] == nullptr) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
+        void set_ssh_port(const httplib::Request &request, httplib::Response &response)
+        {
+            std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
+            response.set_header("Access-Control-Allow-Origin", "*");
+            if (!check_body(request))
+            {
+                response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
+                return;
+            }
+            nlohmann::json json_body = nlohmann::json::parse(request.body);
 
-        if (json_body["port"] == nullptr) {
-            response.set_content(SSH_PORT_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
+            if (json_body["port"] == nullptr)
+            {
+                response.set_content(SSH_PORT_REQUIRED_STRING, JSON_TYPE);
+                return;
+            }
 
-        if (authenticate(json_body["token"])) {
+            if (!authenticate(json_body["token"]))
+            {
+                response.set_content(R"({"access":"reject"})", JSON_TYPE);
+                return;
+            }
             std::ifstream oldsshportfile(SSH_PORT_PATH);
             int old_ssh_port;
             oldsshportfile >> old_ssh_port;
@@ -82,8 +86,6 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"port":")" << ssh_port << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
-            return;
         }
-        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

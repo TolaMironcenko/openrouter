@@ -19,7 +19,7 @@ syslogbutton.addEventListener('click', () => {
 })
 
 headermenubutton.addEventListener('click', () => {
-    if (headerlinks.classList.contains('active')){
+    if (headerlinks.classList.contains('active')) {
         headerlinks.classList.remove('active')
         return
     }

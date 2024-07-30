@@ -8,30 +8,37 @@
 #include <string>
 #include <syslog.h>
 #include "../../auth/auth.hpp"
+#include "../../helpers.hpp"
 
 #define WIFI_NAME_REQUIRED_STRING R"({"required":"[token,name]"})"
 
-namespace settings {
-    void get_wifi_name(const httplib::Request &request, httplib::Response &response) {
-        std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
-        response.set_header("Access-Control-Allow-Origin", "*");
-        if (request.body.empty()) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
+namespace api
+{
+    namespace settings
+    {
+        void get_wifi_name(const httplib::Request &request, httplib::Response &response)
+        {
+            std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
+            response.set_header("Access-Control-Allow-Origin", "*");
+            if (!check_body(request))
+            {
+                response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
+                return;
+            }
+            nlohmann::json json_body = nlohmann::json::parse(request.body);
 
-        nlohmann::json json_body = nlohmann::json::parse(request.body);
-        if (json_body["token"] == nullptr) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
-
-        if (authenticate(json_body["token"])) {
+            if (!authenticate(json_body["token"]))
+            {
+                response.set_content(R"({"access":"reject"})", JSON_TYPE);
+                return;
+            }
             std::ifstream wifisettingsfile(WIFI_SETTINGS_PATH);
             std::string wifi_name;
             std::string wifisettingsbuffer;
-            while (std::getline(wifisettingsfile, wifisettingsbuffer)) {
-                if (wifisettingsbuffer.find("ssid=") == 0) {
+            while (std::getline(wifisettingsfile, wifisettingsbuffer))
+            {
+                if (wifisettingsbuffer.find("ssid=") == 0)
+                {
                     wifi_name = wifisettingsbuffer;
                     wifi_name.erase(0, 5);
                     break;
@@ -41,36 +48,37 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"name":")" << wifi_name << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
-            return;
-        }
-        response.set_content(R"({"access":"reject"})", JSON_TYPE);
-    }
-
-    void set_wifi_name(const httplib::Request &request, httplib::Response &response) {
-        std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
-        response.set_header("Access-Control-Allow-Origin", "*");
-        if (request.body.empty()) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
         }
 
-        nlohmann::json json_body = nlohmann::json::parse(request.body);
-        if (json_body["token"] == nullptr) {
-            response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
+        void set_wifi_name(const httplib::Request &request, httplib::Response &response)
+        {
+            std::cout << GREEN << request.path << RESET << "  " << request.method << std::endl;
+            response.set_header("Access-Control-Allow-Origin", "*");
+            if (!check_body(request))
+            {
+                response.set_content(ACCESS_REQUIRED_STRING, JSON_TYPE);
+                return;
+            }
+            nlohmann::json json_body = nlohmann::json::parse(request.body);
 
-        if (json_body["name"] == nullptr) {
-            response.set_content(WIFI_NAME_REQUIRED_STRING, JSON_TYPE);
-            return;
-        }
+            if (json_body["name"] == nullptr)
+            {
+                response.set_content(WIFI_NAME_REQUIRED_STRING, JSON_TYPE);
+                return;
+            }
 
-        if (authenticate(json_body["token"])) {
+            if (!authenticate(json_body["token"]))
+            {
+                response.set_content(R"({"access":"reject"})", JSON_TYPE);
+                return;
+            }
             std::ifstream wifisettingsfile(WIFI_SETTINGS_PATH);
             std::string old_wifi_name;
             std::string wifisettingsbuffer;
-            while (std::getline(wifisettingsfile, wifisettingsbuffer)) {
-                if (wifisettingsbuffer.find("ssid=") == 0) {
+            while (std::getline(wifisettingsfile, wifisettingsbuffer))
+            {
+                if (wifisettingsbuffer.find("ssid=") == 0)
+                {
                     old_wifi_name = wifisettingsbuffer;
                     old_wifi_name.erase(0, 5);
                     break;
@@ -89,8 +97,10 @@ namespace settings {
             std::ifstream changedwifisettingsfile(WIFI_SETTINGS_PATH);
             std::string wifi_name;
             std::string changedwifisettingsbuffer;
-            while (std::getline(changedwifisettingsfile, changedwifisettingsbuffer)) {
-                if (changedwifisettingsbuffer.find("ssid=") == 0) {
+            while (std::getline(changedwifisettingsfile, changedwifisettingsbuffer))
+            {
+                if (changedwifisettingsbuffer.find("ssid=") == 0)
+                {
                     wifi_name = changedwifisettingsbuffer;
                     wifi_name.erase(0, 5);
                     break;
@@ -100,8 +110,6 @@ namespace settings {
             std::stringstream responsedata;
             responsedata << R"({"name":")" << wifi_name << R"("})";
             response.set_content(responsedata.str(), JSON_TYPE);
-            return;
         }
-        response.set_content(R"({"access":"reject"})", JSON_TYPE);
     }
 }

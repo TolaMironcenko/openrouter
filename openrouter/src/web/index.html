@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="css/syslog.css">
     <title>Openrouter Admin</title>
 </head>
+
 <body>
     <section class="adminpanel">
         <!-- header -->
@@ -24,7 +26,8 @@
                 <button class="linkbutton" id="infobutton">Info</button>
                 <button class="linkbutton" id="rebootbutton">Reboot</button>
             </div>
-            <h1>Openrouter Admin  Uptime: <p id="uptime"></p></h1>
+            <h1>Openrouter Admin Uptime: <p id="uptime"></p>
+            </h1>
             <div class="userbuttons">
                 <h1 class="headerusername"></h1>
                 <button class="exitbutton">Exit</button>
@@ -65,7 +68,9 @@
                     <div class="settingrectbody" id="dnssettingsbody">
                         <table class="dnsservers">
                             <thead>
-                                <tr><th>DNS servers</th></tr>
+                                <tr>
+                                    <th>DNS servers</th>
+                                </tr>
                             </thead>
                             <tbody id="dnsserverstablebody">
                             </tbody>
@@ -84,8 +89,10 @@
                         </table>
                     </div>
                     <div class="settingrectfooter">
-                        <button id="add_local_domain_button" class="hiddenbutton settingrectfooterbutton">Add Local Domain</button>
-                        <button id="add_dns_server_button" class="hiddenbutton settingrectfooterbutton">Add DNS server</button>
+                        <button id="add_local_domain_button" class="hiddenbutton settingrectfooterbutton">Add Local
+                            Domain</button>
+                        <button id="add_dns_server_button" class="hiddenbutton settingrectfooterbutton">Add DNS
+                            server</button>
                         <button class="settingrectfooterbutton" id="set_dns_settings">Confirm</button>
                     </div>
                 </div>
@@ -119,7 +126,9 @@
                         </div>
                         <table class="sshkeys">
                             <thead>
-                                <tr><th>SSH keys</th></tr>
+                                <tr>
+                                    <th>SSH keys</th>
+                                </tr>
                             </thead>
                             <tbody id="sshkeystablebody">
                             </tbody>
@@ -241,7 +250,7 @@
         </div>
     </div>
     <!-- add DNS server form -->
-     <!-- add local domain form -->
+    <!-- add local domain form -->
     <div class="form" id="addlocaldomainform">
         <div class="formbody addlocaldomainformbody">
             <h1 class="formheader" id="addlocaldomainformheader">Add Local Domain</h1>
@@ -286,4 +295,5 @@
     <script src="js/uptime.js"></script>
     <script src="js/login.js"></script>
 </body>
+
 </html>

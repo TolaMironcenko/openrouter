@@ -2,8 +2,13 @@
 #define REBOOT_HPP
 
 #include <httplib.h>
-namespace systemfuncs {
-    void reboot(const httplib::Request &request, httplib::Response &response);
+
+namespace api
+{
+    namespace system
+    {
+        void reboot(const httplib::Request &request, httplib::Response &response);
+    }
 }
 
 #endif // REBOOT_HPP

@@ -19,7 +19,7 @@ const get_ftp_enabled_status = () => {
 const set_ftp_enabled_status = () => {
     fetch(routes.ftp_status_set(), {
         method: 'POST',
-        body: `{"token":"${localStorage.getItem("token")}","enabled":"${ftpenabled.checked?1:0}"}`
+        body: `{"token":"${localStorage.getItem("token")}","enabled":"${ftpenabled.checked ? 1 : 0}"}`
     }).then(res => res.json()).then(jsondata => {
         if (jsondata.enabled === '1') {
             ftpenabled.checked = true
@@ -31,7 +31,7 @@ const set_ftp_enabled_status = () => {
     })
 }
 
-setftpsettingsbutton.addEventListener('click', () =>{
+setftpsettingsbutton.addEventListener('click', () => {
     if (confirm("Confirm ftp settings?")) {
         set_ftp_enabled_status()
     }

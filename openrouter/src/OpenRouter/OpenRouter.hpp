@@ -6,14 +6,15 @@
 
 #define CORS_ENABLE
 
-class OpenRouter {
-    private:
-        httplib::Server srv;
+class OpenRouter
+{
+private:
+    httplib::Server srv;
 
-    public:
-        OpenRouter();
-        ~OpenRouter();
-        int serve(const std::string &ip, int port, int socket_flags = 0);
+public:
+    OpenRouter();
+    ~OpenRouter();
+    int serve(const std::string &ip, int port, int socket_flags = 0);
 };
 
 #endif // OPENROUTER_HPP

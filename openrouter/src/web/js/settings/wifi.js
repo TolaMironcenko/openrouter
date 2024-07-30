@@ -31,7 +31,7 @@ const get_wifi_status = () => {
 const set_wifi_status = () => {
     fetch(routes.wifi_status_set(), {
         method: 'POST',
-        body: `{"token":"${localStorage.getItem('token')}","status":"${wifistatus.checked?"1":"0"}"}`
+        body: `{"token":"${localStorage.getItem('token')}","status":"${wifistatus.checked ? "1" : "0"}"}`
     }).then(data => data.json()).then(jsondata => {
         if (jsondata.status === "1") {
             wifistatus.checked = true
@@ -157,8 +157,8 @@ const get_wifi_qr_code = () => {
 wifiqr.addEventListener('click', () => {
     if (wifiqr.checked) {
         get_wifi_qr_code()
-        wifiqrimg.innerHTML = 
-        wifiqrimg.classList.add('active')
+        wifiqrimg.innerHTML =
+            wifiqrimg.classList.add('active')
         return
     }
     wifiqrimg.classList.remove('active')

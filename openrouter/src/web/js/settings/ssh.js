@@ -27,7 +27,7 @@ const get_ssh_status = () => {
 const set_ssh_status = () => {
     fetch(routes.ssh_status_set(), {
         method: 'POST',
-        body: `{"token":"${localStorage.getItem("token")}","status":"${sshenable.checked?1:0}"}`
+        body: `{"token":"${localStorage.getItem("token")}","status":"${sshenable.checked ? 1 : 0}"}`
     }).then(res => res.json()).then(jsondata => {
         if (jsondata.status === '1') {
             sshenable.checked = true

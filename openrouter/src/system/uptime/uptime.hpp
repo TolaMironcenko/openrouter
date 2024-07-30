@@ -3,8 +3,12 @@
 
 #include <httplib.h>
 
-namespace systemfuncs {
-    void get_uptime(const httplib::Request &request, httplib::Response &response);
+namespace api
+{
+    namespace system
+    {
+        void get_uptime(const httplib::Request &request, httplib::Response &response);
+    }
 }
 
 #endif // UPTIME_HPP

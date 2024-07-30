@@ -1,6 +1,7 @@
 #include "OpenRouter/OpenRouter.hpp"
 
-int main() {
+int main()
+{
     OpenRouter router;
     return router.serve("127.0.0.1", 43244);
 }

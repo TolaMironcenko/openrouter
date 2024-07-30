@@ -34,7 +34,7 @@ const notification = (text, type) => {
 }
 
 // const closenotification = () => {
-    // notificationbox.classList.remove('active')
+// notificationbox.classList.remove('active')
 // }
 
 // notificationbox.addEventListener('click', closenotification)

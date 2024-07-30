@@ -3,15 +3,19 @@
 
 #include <httplib.h>
 
-namespace settings {
-    void get_ssh_status(const httplib::Request &request, httplib::Response &response);
-    void set_ssh_status(const httplib::Request &request, httplib::Response &response);
+namespace api
+{
+    namespace settings
+    {
+        void get_ssh_status(const httplib::Request &request, httplib::Response &response);
+        void set_ssh_status(const httplib::Request &request, httplib::Response &response);
 
-    void get_ssh_keys(const httplib::Request &request, httplib::Response &response);
-    void set_ssh_keys(const httplib::Request &request, httplib::Response &response);
+        void get_ssh_keys(const httplib::Request &request, httplib::Response &response);
+        void set_ssh_keys(const httplib::Request &request, httplib::Response &response);
 
-    void get_ssh_port(const httplib::Request &request, httplib::Response &response);
-    void set_ssh_port(const httplib::Request &request, httplib::Response &response);
+        void get_ssh_port(const httplib::Request &request, httplib::Response &response);
+        void set_ssh_port(const httplib::Request &request, httplib::Response &response);
+    }
 }
 
 #endif // SSH_HPP

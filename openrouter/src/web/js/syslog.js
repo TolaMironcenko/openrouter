@@ -20,7 +20,7 @@ const get_syslog_data = () => {
             authservicefilterfunc(textdata)
             return
         }
-        syslogdata.innerHTML = textdata.replace(/\n/g,'<br>')
+        syslogdata.innerHTML = textdata.replace(/\n/g, '<br>')
     }).catch((error) => {
         notification(`Ошибка на сервере: ${error}`, "error")
     })
@@ -44,7 +44,7 @@ authservicefilter.addEventListener('click', () => {
 })
 
 const openrouterfilterfunc = (textdata) => {
-    let syslogalldata = textdata.replace(/\n/g,'<br>')
+    let syslogalldata = textdata.replace(/\n/g, '<br>')
     syslogalldata = syslogalldata.split("<br>")
     syslogalldata = syslogalldata.filter(data => {
         return data.includes("openrouter:")
@@ -57,7 +57,7 @@ const openrouterfilterfunc = (textdata) => {
 }
 
 const authservicefilterfunc = (textdata) => {
-    let syslogalldata = textdata.replace(/\n/g,'<br>')
+    let syslogalldata = textdata.replace(/\n/g, '<br>')
     syslogalldata = syslogalldata.split("<br>")
     syslogalldata = syslogalldata.filter(data => {
         return data.includes("auth_service:")
@@ -69,12 +69,16 @@ const authservicefilterfunc = (textdata) => {
     return
 }
 
+let syslogRealtimeIntervalId
 realtimesyslogchekbox.addEventListener('click', () => {
     if (realtimesyslogchekbox.checked) {
-        let socket = new WebSocket("ws://192.168.122.76/syslog");
+        syslogRealtimeIntervalId = setInterval(get_syslog_data, 1000)
+        // let socket = new WebSocket("ws://192.168.122.76/syslog");
 
-        socket.onmessage = function(event) {
-            console.log(event.data)
-        };
+        // socket.onmessage = function(event) {
+        //     console.log(event.data)
+        // };
+    } else {
+        clearInterval(syslogRealtimeIntervalId)
     }
 })

@@ -43,7 +43,7 @@ const get_dns_enabled_status = () => {
 const set_dns_enabled_status = () => {
     fetch(routes.dns_status_set(), {
         method: 'POST',
-        body: `{"token":"${localStorage.getItem("token")}","enabled":"${dnsenabled.checked?1:0}"}`
+        body: `{"token":"${localStorage.getItem("token")}","enabled":"${dnsenabled.checked ? 1 : 0}"}`
     }).then(res => res.json()).then(jsondata => {
         if (jsondata.enabled === '1') {
             dnsenabled.checked = true
@@ -64,7 +64,7 @@ const set_dns_settings = () => {
     }
 }
 
-setdnssettingsbutton.addEventListener('click', () =>{
+setdnssettingsbutton.addEventListener('click', () => {
     if (confirm("Confirm DNS settings?")) {
         set_dns_settings()
     }
@@ -222,7 +222,7 @@ addlocaldomaincancelbutton.addEventListener('click', () => {
 addlocaldomainconfirmbutton.addEventListener('click', () => {
     addlocaldomainform.classList.remove('active')
     if (confirm(`Confirm DNS settings? (Add Local Domain: ${ipinput.value} ${domaininput.value})`)) {
-        localdomains.push({"ip": ipinput.value, "domain": domaininput.value});
+        localdomains.push({ "ip": ipinput.value, "domain": domaininput.value });
         set_local_domains()
         ipinput.value = ""
         domaininput.value = ""
