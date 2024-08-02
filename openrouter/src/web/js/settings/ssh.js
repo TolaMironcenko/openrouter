@@ -110,6 +110,7 @@ sshkeystablebody.addEventListener('click', (e) => {
 
 add_ssh_key_button.addEventListener('click', () => {
     const sshkey = prompt('Get your SSH key:')
+    if (sshkey === null) return
     if (confirm('Confirm SSH settings? (add SSH key)')) {
         sshkeys.push(sshkey)
         set_ssh_keys()

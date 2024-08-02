@@ -4,19 +4,9 @@ const dnssettingbody = document.querySelector('#dnssettingsbody')
 const dnsserverstablebody = document.querySelector('#dnsserverstablebody')
 
 const adddnsserverbutton = document.querySelector('#add_dns_server_button')
-const adddnsserverform = document.querySelector('#adddnsserverform')
-const adddnsservercancelbutton = document.querySelector('#adddnsservercancel')
-const adddnsserverconfirmbutton = document.querySelector('#adddnsserverconfirm')
-const adddnsserverinput = document.querySelector('#adddnsserverinput')
 
 const localdomainstablebody = document.querySelector('#domainsstablebody')
 const addlocaldomainbutton = document.querySelector('#add_local_domain_button')
-const addlocaldomainform = document.querySelector('#addlocaldomainform')
-const addlocaldomaincancelbutton = document.querySelector('#addlocaldomaincancel')
-const addlocaldomainconfirmbutton = document.querySelector('#addlocaldomainconfirm')
-const domaininput = document.querySelector('#domaininput')
-const ipinput = document.querySelector('#ipinput')
-const domainstablebody = document.querySelector('#domainsstablebody')
 
 let dnsservers = []
 let localdomains = []
@@ -107,7 +97,6 @@ const get_dns_server = () => {
 
 const set_dns_server = () => {
     start_loader("Load DNS")
-    dnsservers.push(adddnsserverinput.value)
     fetch(routes.dns_servers_set(), {
         method: 'POST',
         body: `{"token":"${localStorage.getItem('token')}","servers":${JSON.stringify(dnsservers)}}`
@@ -122,34 +111,14 @@ const set_dns_server = () => {
     }).catch((error) => {
         notification(`Ошибка на сервере: ${error}`, "error")
     })
-    adddnsserverinput.value = ""
-}
-
-const cancel_add_dns_server = () => {
-    adddnsserverform.classList.remove('active')
-    adddnsserverinput.value = ""
-}
-
-const cancel_confirm_add_dns_server = () => {
-    confirmform.classList.remove('active')
-    adddnsserverform.classList.add('active')
 }
 
 adddnsserverbutton.addEventListener('click', () => {
-    adddnsserverform.classList.add('active')
-})
-
-adddnsservercancelbutton.addEventListener('click', cancel_add_dns_server)
-
-adddnsserverconfirmbutton.addEventListener('click', () => {
-    adddnsserverform.classList.remove('active')
-    if (adddnsserverinput.value === "") {
-        return
-    }
-    if (confirm(`Confirm DNS settings? (Add DNS server: ${adddnsserverinput.value})`)) {
+    const dnsserver = prompt('Get your DNS server:')
+    if (dnsserver === null) return
+    if (confirm('Confirm DNS settings? (add DNS server)')) {
+        dnsservers.push(dnsserver)
         set_dns_server()
-    } else {
-        cancel_confirm_add_dns_server
     }
 })
 
@@ -204,34 +173,18 @@ const set_local_domains = (domains = localdomains) => {
     })
 }
 
-const cancel_confirm_add_localdomain = () => {
-    confirmform.classList.remove('active')
-    addlocaldomainform.classList.add('active')
-}
-
 addlocaldomainbutton.addEventListener('click', () => {
-    addlocaldomainform.classList.add('active')
-})
-
-addlocaldomaincancelbutton.addEventListener('click', () => {
-    addlocaldomainform.classList.remove('active')
-    domaininput.value = "";
-    ipinput.value = "";
-})
-
-addlocaldomainconfirmbutton.addEventListener('click', () => {
-    addlocaldomainform.classList.remove('active')
-    if (confirm(`Confirm DNS settings? (Add Local Domain: ${ipinput.value} ${domaininput.value})`)) {
-        localdomains.push({ "ip": ipinput.value, "domain": domaininput.value });
+    const domainip = prompt('Get localdomain IP:')
+    if (domainip === null) return
+    const domain = prompt('Get domain:')
+    if (domainip === null || domain === null) return
+    if (confirm(`Confirm DNS settings? (Add Local Domain: ${domainip} ${domain})`)) {
+        localdomains.push({ "ip": domainip, "domain": domain })
         set_local_domains()
-        ipinput.value = ""
-        domaininput.value = ""
-    } else {
-        cancel_confirm_add_localdomain()
     }
 })
 
-domainstablebody.addEventListener('click', (e) => {
+localdomainstablebody.addEventListener('click', (e) => {
     if (e.target.classList.contains('deldomain')) {
         localdomains.splice(localdomains.indexOf(localdomains.find(dom => dom.domain === e.target.id)), 1)
         if (confirm(`Confirm DNS settings? (delete Local Domain: ${e.target.id})`)) {
@@ -240,6 +193,5 @@ domainstablebody.addEventListener('click', (e) => {
         get_local_domains()
     }
 })
-
 
 // ------------------------- local domains end --------------------
