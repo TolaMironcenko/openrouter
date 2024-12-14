@@ -1,3 +1,0 @@
-[submodule "auth_service_cpp"]
-	path = auth_service_cpp
-	url = https://github.com/TolaMironcenko/auth_service_cpp

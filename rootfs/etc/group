@@ -1,4 +1,0 @@
-root:x:0:root
-dnsmasq:x:963:
-sshd:x:33:sshd
-nobody:x:65534:
